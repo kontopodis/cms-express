@@ -4,6 +4,9 @@ const express = require("express");
 const adminRouter = require("./routes/admin/index.js");
 const converter = require("./tools/xls-json-converter.js")
 var bodyParser = require('body-parser');
+const notFound = require("./controllers/notFound.js")
+const makeCallBack = require("./express-callback/index")
+
 
 const app = express();
 const port = process.env.port || 3000;
@@ -21,7 +24,7 @@ app.get("/", function (req, res) {
     log("Reloaded index.js","red")
 });
 
-
+app.use(makeCallBack(notFound))
 app.listen(port, function () {
     log(`Server on port ${port}!`);
 });

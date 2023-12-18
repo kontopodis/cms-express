@@ -1,7 +1,7 @@
 const log = require("../../../tools/log");
 
-module.exports = buildMakeUser = ({ Id, Pass }) => {
-  console.log("buildMakeUser");
+module.exports = buildMakeUser = ({validators}) => {
+
   return (makeUser = ({
     id = Id.createId(),
     username,
@@ -13,7 +13,7 @@ module.exports = buildMakeUser = ({ Id, Pass }) => {
     lastLogin = Date.now(),
   }) => {
 
-    if (!Id.isValid(id)) {
+    if (!validators.isValidId(id)) {
       throw new Error("User must have a valid id.");
     }
     if (!username) {
@@ -22,15 +22,16 @@ module.exports = buildMakeUser = ({ Id, Pass }) => {
     if (!password) {
       throw new Error("User must have a password");
     }
-    if (!Pass.isValid(password)) {
+    if (!validators.isValidPassword(password)) {
       throw new Error("User Password is invalid");
     }
     if (!role) {
       throw new Error("User must have a Role");
     }
-    if (!email) {
-      throw new Error("User must have an Email");
+    if (!validators.isValidEmail(email)) {
+      throw new Error("User must have a valid Email");
     }
+
 
     return Object.freeze({
       getId: () => id,
