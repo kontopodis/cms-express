@@ -52,7 +52,7 @@ module.exports = buildMakeUser = ({validators}) => {
       },
       changeRoleToAdmin: () => {
         role = "admin";
-      },
+      }
     });
   }
 };

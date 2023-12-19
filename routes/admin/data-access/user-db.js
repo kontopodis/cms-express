@@ -1,59 +1,63 @@
-const userMakeDB = (makeDB)=>{
-    const findAll = () =>{
-        let db = makeDB()
-        let result = db.get("SELECT * FROM user")
-        db.close()
-        return JSON.stringify(result)
-    }
-    const findById = (id) =>{
-        let db = makeDB()
-        let sql = `SELECT * FROM user where id="${id}"`
-        let result = db.get(sql)
-        db.close()
-        return JSON.stringify(result)
-    }
+const userMakeDB = (makeDB) => {
+  const findAll = () => {
+    let db = makeDB();
+    let result = db.get("SELECT * FROM cmsUser");
+    db.close();
+    return JSON.stringify(result);
+  };
+  const findById = (id) => {
+    let result;
+    makeDB().then((db) => {
+      let sql = `SELECT * FROM cmsUser where id="${id}"`;
 
-    const addUser = (user) =>{
-        let db = makeDB()
-        let userExists = findById(user.getId())
-        let row = JSON.stringify(userExists)
-        console.log(row)
+      db.all(sql, (rows) => {
+        result = rows;
+      });
 
-        let sql = `INSERT INTO user (id,username,password,createdOn,role,currentStatus,email,lastLogin) VALUES("${user.getId()}","${user.getUsername()}","${user.getPassword()}","${user.getCreatedOn()}","${user.getRole()}","${user.getCurrentStatus()}","${user.getEmail()}","${user.getLastLogin()}");` 
-        
-        let response 
-        db.run(sql,(err)=>{
-            response = err
-        })
-        if(!response){
-            response = "Insert successful"
-        }
-        console.log(response)
-     db.close()
+      sqlT = "select cmsUser from sqlite_master where type='table'";
+      db.all(sqlT, (t) => {
+    console.log(t)
+      });
+    });
+
+    return JSON.stringify(result);
+  };
+
+  const addUser = (user) => {
+    let response;
+    makeDB().then((db) => {
+      let userExists = findById(user.getId());
+      let row = JSON.stringify(userExists);
+      let sql = `INSERT INTO cmsUser (id,username,password,createdOn,role,currentStatus,email,lastLogin) VALUES("${user.getId()}","${user.getUsername()}","${user.getPassword()}","${user.getCreatedOn()}","${user.getRole()}","${user.getCurrentStatus()}","${user.getEmail()}","${user.getLastLogin()}");`;
+      db.run(sql, (err) => {
+        response = err;
+      });
+      if (!response) {
+        response = "Insert successful";
+      }
+    });
+
     return response;
-    }
-    const updateUser = (id,userUpdate) =>{}
-    const deleteUser = (id) =>{
-        let db = makeDB()
+  };
+  const updateUser = (id, userUpdate) => {};
+  const deleteUser = (id) => {
+    let db = makeDB();
 
-
-        let response = db.run(`DELETE FROM user WHERE id="${id}"`)
-        if(!response){
-            response = "Delete successful"
-        }
-
-        db.close()
-        return response
+    let response = db.run(`DELETE FROM cmsUser WHERE id="${id}"`);
+    if (!response) {
+      response = "Delete successful";
     }
 
-return Object.freeze({
+    return response;
+  };
+
+  return Object.freeze({
     findAll,
     findById,
     addUser,
     updateUser,
-    deleteUser
-})
+    deleteUser,
+  });
+};
 
-}
-
-module.exports = userMakeDB
+module.exports = userMakeDB;

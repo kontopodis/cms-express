@@ -21,12 +21,15 @@ module.exports = dataTest = () => {
     it("Should insert a row", () => {
       const user = makeUser(validUser);
       let result = db.addUser(user);
-      console.log(result)
  
       });
     it("Gives back users", () => {
-     let user = db.findById(validUser.id)
-     console.log(user)
+    let user = makeUser(validUser)
+    let userId = user.getId();
+    console.log("userid: "+userId)
+     let userIndb = db.findById(userId)
+     console.log("User in db: "+userIndb)
+
     });
   });
 };
