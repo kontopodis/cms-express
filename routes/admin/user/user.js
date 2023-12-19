@@ -1,8 +1,9 @@
 const log = require("../../../tools/log");
+var Id = require("../validators/id")
 
 module.exports = buildMakeUser = ({validators}) => {
 
-  return (makeUser = ({
+  return makeUser = ({
     id = Id.createId(),
     username,
     password,
@@ -41,7 +42,7 @@ module.exports = buildMakeUser = ({validators}) => {
       getRole: () => role,
       getCurrentStatus: () => currentStatus,
       getEmail: () => email,
-      getLastLogion: () => lastLogin,
+      getLastLogin: () => lastLogin,
 
       changeRoleToReader: () => {
         role = "reader";
@@ -53,5 +54,5 @@ module.exports = buildMakeUser = ({validators}) => {
         role = "admin";
       },
     });
-  });
+  }
 };

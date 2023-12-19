@@ -1,5 +1,6 @@
 const buildMakeUser = require("./user")
-const Id = require("../validators/id")
-const Pass = require("../validators/password")
+const validators = require("../validators")
 
-const makeUser = buildMakeUser({Id,Pass})
+const makeUser = buildMakeUser({validators})
+
+module.exports = makeUser
