@@ -52,6 +52,21 @@ module.exports = buildMakeUser = ({validators}) => {
       },
       changeRoleToAdmin: () => {
         role = "admin";
+      },
+      setUsername:(newUsername)=>{
+        username = newUsername
+      },
+      setPassword:(newPassword)=>{
+        password = newPassword
+      },
+      setEmail:(newEmail)=>{
+        email = newEmail
+      },
+      setLastLogin: (newLogin)=>{
+        lastLogin =newLogin
+      },
+      setCurrentStatus:(newCurrentStatus)=>{
+        currentStatus = newCurrentStatus
       }
     });
   }

@@ -1,62 +1,79 @@
 const userMakeDB = (makeDB) => {
-  const findAll = () => {
-    let db = makeDB();
-    let result = db.get("SELECT * FROM cmsUser");
-    db.close();
-    return JSON.stringify(result);
+  const findAll = async () => {
+    let db = await makeDB();
+    return await db.all("select * from cmsUser");
   };
-  const findById = (id) => {
-    let result;
-    makeDB().then((db) => {
-      let sql = `SELECT * FROM cmsUser where id="${id}"`;
-
-      db.all(sql, (rows) => {
-        result = rows;
-      });
-
-      sqlT = "select cmsUser from sqlite_master where type='table'";
-      db.all(sqlT, (t) => {
-    console.log(t)
-      });
-    });
-
-    return JSON.stringify(result);
+  const findById = async (id) => {
+    let db = await makeDB();
+    let user = await db.get("select * from cmsUser where id=?", id);
+    return await user;
+  };
+  const findByEmail = async (email) => {
+    let db = await makeDB();
+    let user = await db.get("select * from cmsUser where email=?", email);
+    return await user;
   };
 
-  const addUser = (user) => {
-    let response;
-    makeDB().then((db) => {
-      let userExists = findById(user.getId());
-      let row = JSON.stringify(userExists);
-      let sql = `INSERT INTO cmsUser (id,username,password,createdOn,role,currentStatus,email,lastLogin) VALUES("${user.getId()}","${user.getUsername()}","${user.getPassword()}","${user.getCreatedOn()}","${user.getRole()}","${user.getCurrentStatus()}","${user.getEmail()}","${user.getLastLogin()}");`;
-      db.run(sql, (err) => {
-        response = err;
-      });
-      if (!response) {
-        response = "Insert successful";
+  const addUser = async (user) => {
+    let userById = await findById(user.getId());
+    let userByEmail = await findByEmail(user.getEmail());
+
+    if (userById) {
+      return "User Exists";
+    } else {
+      if (userByEmail) {
+        return "User Exists";
+      } else {
+        let db = await makeDB();
+        let sql = `INSERT INTO cmsUser
+      (id,username,password,createdOn,role,currentStatus,email,lastLogin) 
+      VALUES(:id,:username,:password,:createdOn,:role,:currentStatus,:email,:lastLogin)`;
+        let obj = {
+          ":id": user.getId(),
+          ":username": user.getUsername(),
+          ":password": user.getPassword(),
+          ":createdOn": user.getCreatedOn(),
+          ":role": user.getRole(),
+          ":currentStatus": user.getCurrentStatus(),
+          ":email": user.getEmail(),
+          ":lastLogin": user.getLastLogin(),
+        };
+        let res = await db.run(sql, obj);
+
+        return await res;
       }
-    });
-
-    return response;
-  };
-  const updateUser = (id, userUpdate) => {};
-  const deleteUser = (id) => {
-    let db = makeDB();
-
-    let response = db.run(`DELETE FROM cmsUser WHERE id="${id}"`);
-    if (!response) {
-      response = "Delete successful";
     }
+  };
+  const updateUserById = async (id, user) => {
+    let db = await makeDB();
+    sql = `update cmsUser set username=:username, password=:password ,role= :role, currentStatus = :currentStatus, email = :email, lastLogin = :lastLogin where id=:id`  
+    let obj = {
+      ":id":id,
+      ":username": user.getUsername(),
+      ":password": user.getPassword(),
+      ":role": user.getRole(),
+      ":currentStatus": user.getCurrentStatus(),
+      ":email": user.getEmail(),
+      ":lastLogin": user.getLastLogin(),
+    };
 
-    return response;
+    let res = await db.run(sql,obj)
+    return await res;
+  };
+  const deleteUserById = async (id) => {
+    let db = await makeDB();
+    let sql = "delete from cmsUser where id=?";
+    let res = await db.run(sql, id);
+    return await res;
   };
 
   return Object.freeze({
     findAll,
     findById,
+    findByEmail,
     addUser,
-    updateUser,
-    deleteUser,
+    updateUserById,
+    deleteUserById,
   });
 };
 
