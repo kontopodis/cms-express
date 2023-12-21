@@ -1,4 +1,4 @@
-const makeDB = require("./index");
+const userDB = require("./index");
 const Id = require("../validators/id");
 const { expect, assert } = require("chai");
 const userMakeDB = require("./user-db");
@@ -40,7 +40,7 @@ module.exports = dataTest = () => {
     };
 
     it("Inserts a user ", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       const user = makeUser(validUser);
       const id = user.getId();
       expect(id).to.be.equal(validUser.id);
@@ -51,7 +51,7 @@ module.exports = dataTest = () => {
     });
 
     it("Doesn't insert a user with the same id", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
 
       let user2 = makeUser(sameIdUser);
       // user1 had been inserted in previous test
@@ -60,7 +60,7 @@ module.exports = dataTest = () => {
     });
 
     it("Doesn't insert a user with the same email", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let user2 = makeUser(sameEmailUser);
       // user1 had been inserted in previous test
       let result = await db.addUser(user2);
@@ -68,7 +68,7 @@ module.exports = dataTest = () => {
     });
 
     it("Gives back users", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let users = await db.findAll();
       expect(users.length).to.above(0);
       expect(users).to.be.ok;
@@ -76,7 +76,7 @@ module.exports = dataTest = () => {
     });
 
     it("Gives back a user by id", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let user = await db.findById(validUser.id);
       expect(user).to.be.ok;
       expect(user).to.be.a("object");
@@ -84,7 +84,7 @@ module.exports = dataTest = () => {
     });
 
     it("Gives back a user by email", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let user = await db.findByEmail(validUser.email);
 
       expect(user).to.be.ok;
@@ -93,22 +93,22 @@ module.exports = dataTest = () => {
     });
 
     it("Updates a user",async ()=>{
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let user = makeUser(validUser)
       user.changeRoleToReader()
       let res = await db.updateUserById(user.getId(),user)
       expect(res).to.be.a("object")
     })
     it("Should delete a user by id", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
 
       db.deleteUserById(validUser.id);
     });
 
     it("Cleaning up", async () => {
-      const db = userMakeDB(makeDB);
+      const db = userDB
       let allUsers = await db.findAll();
-
+      
       expect(allUsers).to.be.a("array");
       expect(allUsers.length).to.be.equal(0);
     });

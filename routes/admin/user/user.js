@@ -8,8 +8,8 @@ module.exports = buildMakeUser = ({validators}) => {
     username,
     password,
     createdOn = Date.now(),
-    role,
-    currentStatus,
+    role = "reader",
+    currentStatus = "active",
     email,
     lastLogin = Date.now(),
   }) => {

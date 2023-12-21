@@ -1,8 +1,10 @@
 const makeUser = require("../user")
-const makeAddUser = ({userDB})=>{
+const makeAddUser = (userDB)=>{
     return  addUser = async (userInfo)=>{
 
-        return await(true) 
+        const db = userDB
+        const user = makeUser(userInfo);
+        return await db.addUser(user)
     }
 
 }
