@@ -1,5 +1,5 @@
 const makeUser = require("../user/index")
-const makeUpdateUser = ({userDB})=>{
+const makeUpdateUser = (userDB)=>{
     return updateUser = async (userInfo)=>{
         const db = userDB
         let user = makeUser(userInfo)

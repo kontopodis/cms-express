@@ -2,7 +2,7 @@ const express = require("express");
 const app = express.Router();
 const log = require("../../tools/log");
 const makeCallBack = require("../../express-callback")
-const {createUser} = require("./controllers")
+const {createUser,getUsers} = require("./controllers")
 // Home page route.
 app.get("/admin", function (req, res) {
   res.render("login");
@@ -12,5 +12,6 @@ app.get("/admin", function (req, res) {
 app.post("/auth", function (req, res) {});
 
 app.post("/dashboard/user", makeCallBack(createUser));
+app.get("/dashboard/users", makeCallBack(getUsers));
 
 module.exports = app;

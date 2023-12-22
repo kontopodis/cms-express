@@ -1,4 +1,4 @@
-const makeFindUserByEmail = ({userDB})=>{
+const makeFindUserByEmail = (userDB)=>{
     return  findUserByEmail = async (id)=>{
         const db = userDB
         return await db.findByEmail(id);

@@ -1,5 +1,5 @@
 const makeUser = require("../user/index")
-const makeDeleteUser = ({userDB})=>{
+const makeDeleteUser = (userDB)=>{
     return  deleteUser = async (userInfo)=>{
         const db = userDB
         const user = makeUser(userInfo);

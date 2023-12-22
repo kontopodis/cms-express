@@ -107,8 +107,13 @@ module.exports = dataTest = () => {
 
     it("Cleaning up", async () => {
       const db = userDB
+
       let allUsers = await db.findAll();
-      
+      if(allUsers.length > 0){
+        for(i=0;i<allUsers.length;i++){
+          await db.deleteUserById(allUsers[i].id);
+        }
+      }
       expect(allUsers).to.be.a("array");
       expect(allUsers.length).to.be.equal(0);
     });
