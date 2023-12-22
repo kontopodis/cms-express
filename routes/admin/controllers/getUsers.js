@@ -4,7 +4,7 @@ const makeGetUsers = (findAll) => {
       "Content-Type": "application/json",
     };
     try {
-      const users = await findAll(httpRequest.query.postId);
+      const users = await findAll();
       return {
         headers,
         statusCode: 200,
