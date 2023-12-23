@@ -20,7 +20,7 @@ app.post("/auth", function (req, res) {});
 app.post("/dashboard/register", makeCallBack(createUser));
 app.get("/dashboard/users", makeCallBack(getUsers));
 app.get("/dashboard/user", makeCallBack(getUserById));
-app.patch("/dashboard/remove", makeCallBack(removeUser));
+app.delete("/dashboard/remove", makeCallBack(removeUser));
 app.patch("/dashboard/update", makeCallBack(updateUser));
 
 module.exports = app;

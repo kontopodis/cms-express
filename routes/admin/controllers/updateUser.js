@@ -6,13 +6,12 @@ const makeUpdateUser = (updateUserUC) => {
       };
       try {
 
-        const tempUser = {
-            id : httpRequest.body.id,
-            username : httpRequest.body.username,
-            password : httpRequest.body.password,
-            email : httpRequest.body.email
+        const updateCase = {
+            id: httpRequest.body.id,
+            case: httpRequest.body.case,
+            value: httpRequest.body.value
         }
-        const user = await updateUserUC(tempUser);
+        const user = await updateUserUC(updateCase);
         return {
           headers,
           statusCode: 200,

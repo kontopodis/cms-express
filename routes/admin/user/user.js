@@ -1,9 +1,8 @@
 const log = require("../../../tools/log");
-var Id = require("../validators/id")
+var Id = require("../validators/id");
 
-module.exports = buildMakeUser = ({validators}) => {
-
-  return makeUser = ({
+module.exports = buildMakeUser = ({ validators }) => {
+  return (makeUser = ({
     id = Id.createId(),
     username,
     password,
@@ -13,7 +12,6 @@ module.exports = buildMakeUser = ({validators}) => {
     email,
     lastLogin = Date.now(),
   }) => {
-
     if (!validators.isValidId(id)) {
       throw new Error("User must have a valid id.");
     }
@@ -32,7 +30,6 @@ module.exports = buildMakeUser = ({validators}) => {
     if (!validators.isValidEmail(email)) {
       throw new Error("User must have a valid Email");
     }
-
 
     return Object.freeze({
       getId: () => id,
@@ -53,21 +50,33 @@ module.exports = buildMakeUser = ({validators}) => {
       changeRoleToAdmin: () => {
         role = "admin";
       },
-      setUsername:(newUsername)=>{
-        username = newUsername
+      setUsername: (newUsername) => {
+        username = newUsername;
       },
-      setPassword:(newPassword)=>{
-        password = newPassword
+      setPassword: (newPassword) => {
+        password = newPassword;
       },
-      setEmail:(newEmail)=>{
-        email = newEmail
+      setEmail: (newEmail) => {
+        email = newEmail;
       },
-      setLastLogin: (newLogin)=>{
-        lastLogin =newLogin
+      setLastLogin: (newLogin) => {
+        lastLogin = newLogin;
       },
-      setCurrentStatus:(newCurrentStatus)=>{
-        currentStatus = newCurrentStatus
+      setCurrentStatus: (newCurrentStatus) => {
+        currentStatus = newCurrentStatus;
+      },
+      toObject:()=>{
+        return {
+          id,
+          username,
+          password,
+          createdOn,
+          email,
+          role,
+          currentStatus,
+          lastLogin
+        }
       }
     });
-  }
+  });
 };

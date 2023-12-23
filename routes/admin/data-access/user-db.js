@@ -44,11 +44,11 @@ const userMakeDB = (makeDB) => {
       }
     }
   };
-  const updateUserById = async (id, user) => {
+  const updateUserById = async ( user) => {
     let db = await makeDB();
     sql = `update cmsUser set username=:username, password=:password ,role= :role, currentStatus = :currentStatus, email = :email, lastLogin = :lastLogin where id=:id`  
     let obj = {
-      ":id":id,
+      ":id":user.getId(),
       ":username": user.getUsername(),
       ":password": user.getPassword(),
       ":role": user.getRole(),

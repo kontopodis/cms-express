@@ -4,7 +4,12 @@ const makeAddUser = (userDB)=>{
 
         const db = userDB
         const user = makeUser(userInfo);
-        return await db.addUser(user)
+        let res = await db.addUser(user)
+        if(res.posted){
+            return "Register completed"
+        }else{
+            return res
+        }
     }
 
 }
