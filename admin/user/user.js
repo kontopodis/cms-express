@@ -1,4 +1,3 @@
-const log = require("../../../tools/log");
 var Id = require("../validators/id");
 
 module.exports = buildMakeUser = ({ validators }) => {

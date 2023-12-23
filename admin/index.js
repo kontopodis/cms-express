@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
-const log = require("../../tools/log");
-const makeCallBack = require("../../express-callback");
+const log = require("../tools/log");
+const makeCallBack = require("../express-callback");
 const {
   createUser,
   getUsers,

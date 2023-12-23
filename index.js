@@ -1,7 +1,7 @@
 
 const log = require("./tools/log.js")
 const express = require("express");
-const adminRouter = require("./routes/admin/index.js");
+const adminRouter = require("./admin/index.js");
 const converter = require("./tools/xls-json-converter.js")
 var bodyParser = require('body-parser');
 const notFound = require("./controllers/notFound.js")

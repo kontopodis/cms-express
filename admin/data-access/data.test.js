@@ -96,7 +96,7 @@ module.exports = dataTest = () => {
       const db = userDB
       let user = makeUser(validUser)
       user.changeRoleToReader()
-      let res = await db.updateUserById(user.getId(),user)
+      let res = await db.updateUserById(user)
       expect(res).to.be.a("object")
     })
     it("Should delete a user by id", async () => {
