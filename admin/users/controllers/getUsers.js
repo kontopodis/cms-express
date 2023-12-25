@@ -4,20 +4,20 @@ const makeGetUsers = (findAll) => {
       "Content-Type": "application/json",
     };
     try {
-      const users = await findAll();
+      const payload = await findAll();
       return {
         headers,
         statusCode: 200,
-        body: users,
+        body: payload,
       };
-    } catch (e) {
+    } catch (payload) {
       // TODO: Error logging
-      console.log(e);
+      console.log(payload);
       return {
         headers,
         statusCode: 400,
         body: {
-          error: e.message,
+          error: payload.message,
         },
       };
     }

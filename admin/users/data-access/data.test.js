@@ -63,23 +63,6 @@ module.exports = dataTest = () => {
       expect(result).to.be.a("object");
     });
 
-    it("Doesn't insert a user with the same id", async () => {
-      const db = userDB
-
-      let user2 = makeUser(sameIdUser);
-      // user1 had been inserted in previous test
-      let result = await db.addUser(user2);
-      expect(result).to.be.equal("User Exists");
-    });
-
-    it("Doesn't insert a user with the same email", async () => {
-      const db = userDB
-      let user2 = makeUser(sameEmailUser);
-      // user1 had been inserted in previous test
-      let result = await db.addUser(user2);
-      expect(result).to.be.equal("User Exists");
-    });
-
     it("Gives back users", async () => {
       const db = userDB
       let users = await db.findAll();

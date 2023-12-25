@@ -11,20 +11,20 @@ const makeUpdateUser = (updateUserUC) => {
             case: httpRequest.body.case,
             value: httpRequest.body.value
         }
-        const user = await updateUserUC(updateCase);
+        const payload = await updateUserUC(updateCase);
         return {
           headers,
           statusCode: 200,
-          body: user,
+          body: payload,
         };
-      } catch (e) {
+      } catch (payload) {
         // TODO: Error logging
-        console.log(e);
+        console.log(payload);
         return {
           headers,
           statusCode: 400,
           body: {
-            error: e.message,
+            error: payload.message,
           },
         };
       }

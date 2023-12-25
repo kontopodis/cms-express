@@ -1,5 +1,5 @@
 
-const log = require("./tools/log.js")
+const log = require("./modules/log.js")
 const express = require("express");
 const adminRouter = require("./admin/index.js");
 var bodyParser = require('body-parser');

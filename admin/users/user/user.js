@@ -29,9 +29,7 @@ module.exports = buildMakeUser = ({ validators }) => {
     if (!validators.isValidEmail(email)) {
       throw new Error("User must have a valid Email");
     }
-    if(!salt){
-      throw new Error("User must have a salt");
-    }
+
 
     return Object.freeze({
       getId: () => id,
@@ -39,7 +37,6 @@ module.exports = buildMakeUser = ({ validators }) => {
       getPassword: () => password,
       getCreatedOn: () => createdOn,
       getRole: () => role,
-      getSalt: () => salt,
       getEmail: () => email,
       getLastLogin: () => lastLogin,
 
@@ -63,9 +60,6 @@ module.exports = buildMakeUser = ({ validators }) => {
       },
       setLastLogin: (newLogin) => {
         lastLogin = newLogin;
-      },
-      setSalt: (newSalt) => {
-        salt = newSalt;
       },
       toObject:()=>{
         return {

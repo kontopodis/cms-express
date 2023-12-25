@@ -1,28 +1,28 @@
-const makeRemoveUser = (deleteUser) => {
-    return (removeUser = async (httpRequest) => {
+const makeGetUserById = (findUserById) => {
+    return (getUsers = async (httpRequest) => {
       const headers = {
         "Content-Type": "application/json",
       };
       try {
-        const user = await deleteUser(httpRequest.body.id);
+        const payload = await findUserById(httpRequest.body.id);
         return {
           headers,
           statusCode: 200,
-          body: user,
+          body: payload,
         };
-      } catch (e) {
+      } catch (payload) {
         // TODO: Error logging
-        console.log(e);
+        console.log(payload);
         return {
           headers,
           statusCode: 400,
           body: {
-            error: e.message,
+            error: payload.message,
           },
         };
       }
     });
   };
   
-  module.exports = makeRemoveUser
+  module.exports = makeGetUserById
   

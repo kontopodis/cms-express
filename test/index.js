@@ -1,7 +1,7 @@
 
-const checkersTests = require("../admin/validators/validators.test.js")
-const userTests = require("../admin/user/user.test.js")
-const dataTests = require("../admin/data-access/data.test.js")
+const checkersTests = require("../admin/users/validators/validators.test.js")
+const userTests = require("../admin/users/user/user.test.js")
+const dataTests = require("../admin/users/data-access/data.test.js")
 checkersTests()
 userTests()
 dataTests()

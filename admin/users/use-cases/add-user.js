@@ -9,9 +9,9 @@ const makeAddUser = (userDB)=>{
         user.setPassword(hash)
         let res = await db.addUser(user)
         if(res.posted){
-            return "Register completed"
+            return true
         }else{
-            return res
+            return false
         }
     }
 

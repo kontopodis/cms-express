@@ -14,35 +14,36 @@ const userMakeDB = (makeDB) => {
     return await user;
   };
 
-  const addUser = async (user) => {
-    let userById = await findById(user.getId());
-    let userByEmail = await findByEmail(user.getEmail());
+  const isUserRole = async (role,id) =>{
+    let db = await makeDB();
+    let user = await db.get("select * from cmsUser where id=?", id);
+    if(user.role === role){
+      return true
+    }else{
+      return false
+    }  };
+  
 
-    if (userById) {
-      return "User Exists";
-    } else {
-      if (userByEmail) {
-        return "User Exists";
-      } else {
+  const addUser = async (user) => {
+
         let db = await makeDB();
         let sql = `INSERT INTO cmsUser
-      (id,username,password,createdOn,role,salt,email,lastLogin) 
-      VALUES(:id,:username,:password,:createdOn,:role,:salt,:email,:lastLogin)`;
+      (id,username,password,createdOn,role,email,lastLogin) 
+      VALUES(:id,:username,:password,:createdOn,:role,:email,:lastLogin)`;
         let obj = {
           ":id": user.getId(),
           ":username": user.getUsername(),
           ":password": user.getPassword(),
           ":createdOn": user.getCreatedOn(),
           ":role": user.getRole(),
-          ":salt": user.getSalt(),
           ":email": user.getEmail(),
           ":lastLogin": user.getLastLogin(),
         };
         let res = await db.run(sql, obj);
 
         return await res;
-      }
-    }
+    
+ 
   };
   const updateUserById = async ( user) => {
     let db = await makeDB();
@@ -73,6 +74,7 @@ const userMakeDB = (makeDB) => {
     addUser,
     updateUserById,
     deleteUserById,
+    isUserRole
   });
 };
 

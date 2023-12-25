@@ -84,9 +84,9 @@ const makeUpdateUser = (userDB) => {
         let newUser = makeUser(oldUser.toObject())
         let res = await db.updateUserById(newUser)
         if(res.changes === 1){
-            return "Changes completed"
+            return true
         }else{
-            return res
+            return false
         }
     }
   });
