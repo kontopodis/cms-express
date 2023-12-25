@@ -1,5 +1,6 @@
 var passwordValidator = require('password-validator');
 
+
 // Create a schema
 var schema = new passwordValidator();
 
@@ -27,8 +28,7 @@ const isValid = (password) =>{
 }
 
 const Pass = Object.freeze({
-    isValid : (password)=> isValid(password),
-    hash : ()=>{log("function Pass.hash TODO","blue")}
+    isValid : (password)=> isValid(password)
 })
 
 module.exports = Pass;

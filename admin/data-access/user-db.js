@@ -26,15 +26,15 @@ const userMakeDB = (makeDB) => {
       } else {
         let db = await makeDB();
         let sql = `INSERT INTO cmsUser
-      (id,username,password,createdOn,role,currentStatus,email,lastLogin) 
-      VALUES(:id,:username,:password,:createdOn,:role,:currentStatus,:email,:lastLogin)`;
+      (id,username,password,createdOn,role,salt,email,lastLogin) 
+      VALUES(:id,:username,:password,:createdOn,:role,:salt,:email,:lastLogin)`;
         let obj = {
           ":id": user.getId(),
           ":username": user.getUsername(),
           ":password": user.getPassword(),
           ":createdOn": user.getCreatedOn(),
           ":role": user.getRole(),
-          ":currentStatus": user.getCurrentStatus(),
+          ":salt": user.getSalt(),
           ":email": user.getEmail(),
           ":lastLogin": user.getLastLogin(),
         };
@@ -46,13 +46,12 @@ const userMakeDB = (makeDB) => {
   };
   const updateUserById = async ( user) => {
     let db = await makeDB();
-    sql = `update cmsUser set username=:username, password=:password ,role= :role, currentStatus = :currentStatus, email = :email, lastLogin = :lastLogin where id=:id`  
+    sql = `update cmsUser set username=:username, password=:password ,role= :role, email = :email, lastLogin = :lastLogin where id=:id`  
     let obj = {
       ":id":user.getId(),
       ":username": user.getUsername(),
       ":password": user.getPassword(),
       ":role": user.getRole(),
-      ":currentStatus": user.getCurrentStatus(),
       ":email": user.getEmail(),
       ":lastLogin": user.getLastLogin(),
     };

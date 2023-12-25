@@ -5,13 +5,26 @@ const userMakeDB = require("./user-db");
 const makeUser = require("../user/index");
 module.exports = dataTest = () => {
   describe("Database Tests", () => {
+    after("Cleaning up", async () => {
+      const db = userDB
+
+      let allUsers = await db.findAll();
+      if(allUsers.length > 0){
+        for(i=0;i<allUsers.length;i++){
+          await db.deleteUserById(allUsers[i].id);
+        }
+      }
+      let noneUser = await db.findAll()
+      expect(noneUser).to.be.a("array");
+      expect(noneUser.length).to.be.equal(0);
+    });
     const validUser = {
       id: Id.createId().toString(),
       username: "manos",
       password: "1_aAhsbx2",
       createdOn: Date.now().toString(),
       role: "admin",
-      currentStatus: "active",
+      salt: "active",
       email: "asd@gmail.com",
       lastLogin: Date.now().toString(),
     };
@@ -23,7 +36,7 @@ module.exports = dataTest = () => {
       password: "1_aAhsbx2",
       createdOn: Date.now().toString(),
       role: "moderator",
-      currentStatus: "active",
+      salt: "active",
       email: "artu@gmail.com",
       lastLogin: Date.now().toString(),
     };
@@ -34,7 +47,7 @@ module.exports = dataTest = () => {
       password: "1_aAhsbx2",
       createdOn: Date.now().toString(),
       role: "moderator",
-      currentStatus: "active",
+      salt: "active",
       email: "asd@gmail.com",
       lastLogin: Date.now().toString(),
     };
@@ -101,21 +114,9 @@ module.exports = dataTest = () => {
     })
     it("Should delete a user by id", async () => {
       const db = userDB
-
       db.deleteUserById(validUser.id);
     });
 
-    it("Cleaning up", async () => {
-      const db = userDB
 
-      let allUsers = await db.findAll();
-      if(allUsers.length > 0){
-        for(i=0;i<allUsers.length;i++){
-          await db.deleteUserById(allUsers[i].id);
-        }
-      }
-      expect(allUsers).to.be.a("array");
-      expect(allUsers.length).to.be.equal(0);
-    });
   });
 };

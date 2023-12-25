@@ -11,7 +11,7 @@ const validUser={
     password:"1_aAhsbx2",
     createdOn : Date.now(),
     role:"admin",
-    currentStatus:"active",
+    salt:"active",
     email:"asd@gmail.com",
     lastLogin : Date.now(),
 }
@@ -22,7 +22,7 @@ const invalidUserPassword={
     password:"1234",
     createdOn : Date.now(),
     role:"admin",
-    currentStatus:"active",
+    salt:"active",
     email:"asd@gmail.com",
     lastLogin : Date.now(),
 }

@@ -23,7 +23,7 @@ const client = new sqlite3.Database("cms-express.db", () => {
   };
   function createTables() {
     console.log("creating table");
-    client.run(`CREATE TABLE cmsUser (id TEXT PRIMARY KEY NOT NULL, username text not null, password text not null, email text not null, createdOn text not null, role text not null, currentStatus text not null, lastLogin text not null);`,
+    client.run(`CREATE TABLE cmsUser (id TEXT PRIMARY KEY NOT NULL, username text not null, password text not null, email text not null, createdOn text not null, role text not null, salt text not null, lastLogin text not null);`,
       (err) => {
         if(err){
             throw new Error(err)

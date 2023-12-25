@@ -1,5 +1,9 @@
 const Pass = require("./password");
 const Id = require("./id");
+const encryptOassword = require("./encrypt")
+const bcrypt = require('bcrypt');
+const userDB = require("../data-access")
+const makeUser = require("../user")
 var { expect, assert } = require("chai");
 const validator = require("./email");
 const validators = require("./index");
@@ -131,4 +135,37 @@ module.exports = () => {
       expect(validators.isValidId(Id.createId())).to.equal(true);
     });
   });
+
+  describe("Encrypt Tests",()=>{
+    after("Cleaning up", async () => {
+      const db = userDB
+
+      let allUsers = await db.findAll();
+      if(allUsers.length > 0){
+        for(i=0;i<allUsers.length;i++){
+          await db.deleteUserById(allUsers[i].id);
+        }
+      }
+      let noneUser = await db.findAll()
+      expect(noneUser).to.be.a("array");
+      expect(noneUser.length).to.be.equal(0);
+    });
+    const validUser={
+      id : Id.createId(),
+      username:"manos",
+      password:"1_aAhsbx2",
+      createdOn : Date.now(),
+      role:"admin",
+      salt:"active",
+      email:"asd@gmail.com",
+      lastLogin : Date.now(),
+  }
+    it("Encrypts passwords", async ()=>{
+      let user = makeUser(validUser)
+       let hash = await encryptOassword(user.getPassword())
+       let ok = await bcrypt.compare(user.getPassword(),hash)
+       expect(ok).to.be.true
+    })
+   })
+   
 };
