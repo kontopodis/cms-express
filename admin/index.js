@@ -9,15 +9,18 @@ const {
   removeUser,
   updateUser,
 } = require("./users/controllers");
+
+global.activeUsers = {}
 // Home page route.
 app.get("/admin", function (req, res) {
   res.render("login");
 });
 
-// About page route.
+// without authentication
 app.post("/auth", function (req, res) {});
-
 app.post("/dashboard/users", makeCallBack(createUser));
+
+//Only Admins access
 app.get("/dashboard/users", makeCallBack(getUsers));
 app.get("/dashboard/user/:id", makeCallBack(getUserById));
 app.delete("/dashboard/users", makeCallBack(removeUser));
