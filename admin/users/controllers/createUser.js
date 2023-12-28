@@ -14,8 +14,7 @@ const makeCreateUser = (addUser) => {
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const verifiedToken = jwt.verifyToken(source.token)
-      if(verifiedToken.success){
+
           // todo has to check if the userid is admin
           let added = await addUser(userInfo);
           if (added){
@@ -24,15 +23,7 @@ const makeCreateUser = (addUser) => {
           }else{
             payload.code = 400
             payload.message = "Bad Request"
-          }
-      }else{
-        payload.code = 403
-        payload.message = "Not Authorized"
-      }
-
-
-
-      
+          }      
       return {
         headers: {
           "Content-Type": "application/json",
