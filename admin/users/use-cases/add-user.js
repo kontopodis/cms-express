@@ -1,6 +1,6 @@
 const makeUser = require("../user")
-const encryptPassword = require("../validators/encrypt")
-const validators = require('../validators')
+const encryptPassword = require("../../modules/encrypt")
+const validators = require('../../modules/index')
 const makeAddUser = (userDB)=>{
     return  addUser = async (userInfo)=>{
 

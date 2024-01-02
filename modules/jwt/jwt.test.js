@@ -1,6 +1,6 @@
 var { expect, assert } = require("chai");
 const makeUser = require("../../admin/users/user");
-const Id = require("../../admin/users/validators/id");
+const Id = require("../../admin/modules/id");
 const jwt = require("./index");
 const userCache = require("../cache/user-cache");
 module.exports = () => {

@@ -1,5 +1,5 @@
 const userDB = require("./index");
-const Id = require("../validators/id");
+const Id = require("../../modules/id");
 const { expect, assert } = require("chai");
 const userMakeDB = require("./user-db");
 const makeUser = require("../user/index");

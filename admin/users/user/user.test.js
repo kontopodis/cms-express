@@ -1,8 +1,6 @@
 const buildMakeUser = require("./user");
-const Pass = require("../validators/password");
-const Id = require("../validators/id");
-const Email = require("../validators/email")
-const validators = require("../validators/index")
+const Id = require("../../modules/id");
+const validators = require("../../modules")
 var { expect, assert } = require("chai");
 
 const validUser={

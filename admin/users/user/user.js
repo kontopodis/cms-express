@@ -1,4 +1,4 @@
-var Id = require("../validators/id");
+var Id = require("../../modules/id");
 
 module.exports = buildMakeUser = ({ validators }) => {
   return (makeUser = ({
