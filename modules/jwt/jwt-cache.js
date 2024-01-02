@@ -10,4 +10,8 @@ const getTokensUser = (token) => {
   return userCache.get(token);
 };
 
-module.exports = { insertToken, deleteToken, getTokensUser };
+const flushAll = ()=>{
+  userCache.flushAll()
+}
+
+module.exports = { insertToken, deleteToken, getTokensUser,flushAll };

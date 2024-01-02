@@ -15,8 +15,8 @@ const makeCreateUser = (addUser) => {
         source.referrer = httpRequest.headers["Referer"];
       }
 
-          // todo has to check if the userid is admin
           let added = await addUser(userInfo);
+     
           if (added){
             payload.code = 201
             payload.message = "OK"

@@ -5,11 +5,14 @@ module.exports = buildMakeUser = ({ validators }) => {
     id = Id.createId(),
     username,
     password,
-    createdOn = Date.now(),
+    createdOn = new Date().toLocaleString('en-GB', {
+      hour12: false,
+    }),
     role = "reader",
-    salt,
     email,
-    lastLogin = Date.now(),
+    lastLogin = new Date().toLocaleString('en-GB', {
+      hour12: false,
+    }),
   }) => {
     if (!validators.isValidId(id)) {
       throw new Error("User must have a valid id.");
@@ -69,7 +72,6 @@ module.exports = buildMakeUser = ({ validators }) => {
           createdOn,
           email,
           role,
-          currentStatus,
           lastLogin
         }
       }

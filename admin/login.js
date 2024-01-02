@@ -1,6 +1,7 @@
 const jwt = require("../modules/jwt")
 const bcrypt = require("bcrypt")
 const userDB = require("../admin/users/data-access")
+const userService = require("./users/use-cases/")
 const login = async (httpRequest) => {
       const headers = {
         "Content-Type": "application/json",
@@ -11,7 +12,7 @@ const login = async (httpRequest) => {
         let emailL = emailJS.toLowerCase()
         let email = emailL.trim()
         let user = await userDB.findByEmail(email)
-console.log(email,pass, user)
+
         if(!email || !pass){
             return {
                 headers,
@@ -30,19 +31,26 @@ console.log(email,pass, user)
                         message:"Invalid Email or Password"},
                   };
             }else{
-                console.log("matchung")
+        
                 let match = await bcrypt.compare(pass,user.password)
-                console.log(match)
+              
                 if(match){
                     let token = jwt.generateToken(user)
                     jwt.insertToken(token,user)
+                    let update = {
+                      case:"login",
+                      id: user.id
+                    }
+
+                   await userService.updateUser(update)
+             
+
                     return {
                         headers,
                         statusCode:200,
                         body:{
                             code:200,
                             token:token,
-                            id:user.id,
                             message:"Login Successfull"
                         }
                     }

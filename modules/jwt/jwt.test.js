@@ -17,6 +17,9 @@ module.exports = () => {
 
   user = makeUser(validUser);
   describe("JWT Tests", () => {
+    before("preparing cache",()=>{
+      jwt.flushAll()
+    })
     let globalToken = "Invalid Token";
     it("Creates a token", () => {
       let token = jwt.generateToken(user);

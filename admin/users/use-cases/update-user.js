@@ -78,11 +78,16 @@ const makeUpdateUser = (userDB) => {
         }
     }
     if (update.case === "login"){
+
         let dbUser = await db.findById(update.id)
         let oldUser = makeUser(dbUser)
-        oldUser.setLastLogin(Date.now())
+        const now = new Date().toLocaleString('en-GB', {
+          hour12: false,
+        });
+        oldUser.setLastLogin(now)
         let newUser = makeUser(oldUser.toObject())
         let res = await db.updateUserById(newUser)
+
         if(res.changes === 1){
             return true
         }else{
