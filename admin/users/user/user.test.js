@@ -1,6 +1,6 @@
-const buildMakeUser = require("./user");
+const makeUser = require("./index");
 const Id = require("../../modules/id");
-const validators = require("../../modules")
+const modules = require("../../modules")
 var { expect, assert } = require("chai");
 
 const validUser={
@@ -27,7 +27,6 @@ const invalidUserPassword={
 
 module.exports = ()=>{
     describe("User Entity Tests",()=>{
-        const makeUser = buildMakeUser({validators})
         it("These should work",()=>{
            
             const user = makeUser(validUser)
@@ -36,8 +35,9 @@ module.exports = ()=>{
         })
 
         it("Password should fail",()=>{
+            
             expect(()=>{
-                let invaliduser = makeUser(invalidUserPassword)
+                makeUser(invalidUserPassword)
             }).to.throw("User Password is invalid")
         })
 

@@ -1,10 +1,5 @@
 const sqlite3 = require("sqlite3");
-const makeUser = require("./admin/users/user")
-const validators = require("./admin/users/validators")
-const readline = require('node:readline').createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+
 
 const client = new sqlite3.Database("cms-express.db", () => {
     checkDBStatus();
@@ -36,6 +31,13 @@ const client = new sqlite3.Database("cms-express.db", () => {
         }
       }
     );
+    client.run(`CREATE TABLE cmsArticle (id TEXT PRIMARY KEY NOT NULL, authorId text not null, title text not null, content text not null, createdOn text not null, lastEditedOn text not null);`,
+    (err) => {
+      if(err){
+          throw new Error(err)
+      }
+    }
+  );
     console.log("Install of cms-express completed!")
   }
 

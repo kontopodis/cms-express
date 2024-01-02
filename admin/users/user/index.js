@@ -1,6 +1,6 @@
 const buildMakeUser = require("./user")
-const validators = require("../../modules")
+const modules = require("../../modules")
 
-const makeUser = buildMakeUser({validators})
+const makeUser = buildMakeUser({modules})
 
 module.exports = makeUser

@@ -165,7 +165,7 @@ it('Gets 201 when an admin trying to get all users', async () => {
     .set("token", adminToken)
  
         expect(response.status).to.be.equal(200)
-        console.log(response.body)
+    
  
 });
 });

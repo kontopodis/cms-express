@@ -1,8 +1,8 @@
-var Id = require("../../modules/id");
 
-module.exports = buildMakeUser = ({ validators }) => {
+
+module.exports = buildMakeUser = ({modules} ) => {
   return (makeUser = ({
-    id = Id.createId(),
+    id = modules.createId(),
     username,
     password,
     createdOn = new Date().toLocaleString('en-GB', {
@@ -14,7 +14,7 @@ module.exports = buildMakeUser = ({ validators }) => {
       hour12: false,
     }),
   }) => {
-    if (!validators.isValidId(id)) {
+    if (!modules.isValidId(id)) {
       throw new Error("User must have a valid id.");
     }
     if (!username) {
@@ -23,13 +23,13 @@ module.exports = buildMakeUser = ({ validators }) => {
     if (!password) {
       throw new Error("User must have a password");
     }
-    if (!validators.isValidPassword(password)) {
+    if (!modules.isValidPassword(password)) {
       throw new Error("User Password is invalid");
     }
     if (!role) {
       throw new Error("User must have a Role");
     }
-    if (!validators.isValidEmail(email)) {
+    if (!modules.isValidEmail(email)) {
       throw new Error("User must have a valid Email");
     }
 
