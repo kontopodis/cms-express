@@ -7,7 +7,6 @@ const login = require("./login")
 const {
   createUser,
   getUsers,
-  getUserById,
   removeUser,
   updateUser,
 } = require("./users/controllers");
@@ -24,7 +23,6 @@ app.post("/dashboard/users", makeCallBack(createUser));
 
 //Only Admins access
 app.get("/dashboard/users",jwtMiddleware, makeCallBack(getUsers));
-app.get("/dashboard/user/:id",jwtMiddleware, makeCallBack(getUserById));
 app.delete("/dashboard/users",jwtMiddleware, makeCallBack(removeUser));
 app.patch("/dashboard/users",jwtMiddleware, makeCallBack(updateUser));
 
