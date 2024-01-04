@@ -18,6 +18,7 @@ module.exports = function makeExpressCallback (controller) {
           res.status(httpResponse.statusCode).send(httpResponse.body)
         })
         .catch(e => {
+          console.log(e)
             res.status(500).send({ error: 'An unkown error occurred.' })
       
         })

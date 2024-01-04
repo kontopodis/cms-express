@@ -10,9 +10,9 @@ const {
   removeUser,
   updateUser,
 } = require("./users/controllers");
-
-global.activeUsers = {}
+const articlesRouter = require("./articles")
 // Home page route.
+app.use("/dashboard/",articlesRouter)
 app.get("/admin", function (req, res) {
   res.render("login");
 });
@@ -24,6 +24,7 @@ app.post("/dashboard/users", makeCallBack(createUser));
 //Only Admins access
 app.get("/dashboard/users",jwtMiddleware, makeCallBack(getUsers));
 app.delete("/dashboard/users",jwtMiddleware, makeCallBack(removeUser));
+//Only Admins or the owner of that userInstance
 app.patch("/dashboard/users",jwtMiddleware, makeCallBack(updateUser));
 
 module.exports = app;

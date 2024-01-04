@@ -5,7 +5,10 @@ const adminRouter = require("./admin/index.js");
 var bodyParser = require('body-parser');
 const notFound = require("./controllers/notFound.js")
 const makeCallBack = require("./express-callback/index")
-
+const {
+    getAllArticles,
+    getArticleById
+} = require("./admin/articles/controllers")
 
 const app = express();
 
@@ -13,11 +16,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/admin", adminRouter)
-app.use(makeCallBack(notFound))
+
 
 
 app.set('view engine', 'pug');
 app.set('views','./views');
+
 
 
 app.get("/", function (req, res) {
@@ -25,7 +29,9 @@ app.get("/", function (req, res) {
     log("Reloaded index.js","red")
 });
 
-
-
+// without authentication
+app.get("/articles", makeCallBack(getAllArticles));
+app.get("/articles/:id", makeCallBack(getArticleById));
+app.use(makeCallBack(notFound))
 
 module.exports = app
