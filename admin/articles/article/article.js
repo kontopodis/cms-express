@@ -49,8 +49,10 @@ const buildMakeArticle = ({modules}) =>{
             setImageUrl:(value)=>{
                 imageUrl = value
             },
-            setLastEditedOn:(value)=>{
-                lastEditedOn = value
+            setLastEditedOn:()=>{
+                lastEditedOn = new Date().toLocaleString('en-GB', {
+                    hour12: false,
+                  })
             },
             toObject:()=>{
                 return{

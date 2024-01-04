@@ -31,7 +31,7 @@ const client = new sqlite3.Database("cms-express.db", () => {
         }
       }
     );
-    client.run(`CREATE TABLE cmsArticle (id TEXT PRIMARY KEY NOT NULL, authorId text not null, title text not null, content text not null, createdOn text not null, lastEditedOn text not null);`,
+    client.run(`CREATE TABLE cmsArticle (id TEXT PRIMARY KEY NOT NULL, authorId text not null, title text not null, content text not null, imageUrl text not null, createdOn text not null, lastEditedOn text not null);`,
     (err) => {
       if(err){
           throw new Error(err)

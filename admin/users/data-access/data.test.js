@@ -97,7 +97,8 @@ module.exports = dataTest = () => {
     })
     it("Should delete a user by id", async () => {
       const db = userDB
-      db.deleteUserById(validUser.id);
+     const res = await db.deleteUserById(validUser.id);
+     expect(res.changes).to.be.equal(1)
     });
 
 
