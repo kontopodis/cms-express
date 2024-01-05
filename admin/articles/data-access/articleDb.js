@@ -30,8 +30,9 @@ const makeArticleDB = (makeDB)=>{
     
     }
     const updateArticle = async (article)=>{
+        console.log(article)
         let db = await makeDB();
-        sql = `update cmsArticle set title=:title, content=:content ,imageUrl= :imageUrl, lastEditedOn = :lastEditedOn where id=:id`  
+        sql = `update cmsArticle set title= :title, content= :content ,imageUrl= :imageUrl, lastEditedOn = :lastEditedOn where id= :id`  
         let obj = {
           ":id":article.getId(),
           ":title": article.getTitle(),
@@ -41,7 +42,13 @@ const makeArticleDB = (makeDB)=>{
           
         };
     
-        let res = await db.run(sql,obj)
+        let res = await db.run(sql,obj,(error, res)=>{
+            if(error){
+                throw new Error(error)
+            }else{
+                console.log(res)
+            }
+        })
         return await res;
     }
     const deleteArticle = async (id) =>{

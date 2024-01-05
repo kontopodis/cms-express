@@ -11,7 +11,8 @@ const {
   updateUser,
 } = require("./users/controllers");
 const articlesRouter = require("./articles")
-// Home page route.
+
+
 app.use("/dashboard/",articlesRouter)
 app.get("/admin", function (req, res) {
   res.render("login");

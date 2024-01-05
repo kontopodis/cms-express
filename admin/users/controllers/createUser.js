@@ -1,37 +1,42 @@
-const jwt = require("../../../modules/jwt")
+const jwt = require("../../../modules/jwt");
 const makeCreateUser = (addUser) => {
   return (createUser = async (httpRequest) => {
-    var payload = {
-      code: 204,
-      message : ""
-
-    }
     try {
-      const { source = {}, ...userInfo } = httpRequest.body;
-      source.token = httpRequest.token
-      source.ip = httpRequest.ip;
-      source.browser = httpRequest.headers["User-Agent"];
-      if (httpRequest.headers["Referer"]) {
-        source.referrer = httpRequest.headers["Referer"];
-      }
+      const username = httpRequest.body.username;
+      const password = httpRequest.body.password;
+      const email = httpRequest.body.email;
+      if (username && password && email) {
+        const user = {
+          username:username,
+          password:password,
+          email: email
+        }
+        let added = await addUser(user);
 
-          let added = await addUser(userInfo);
-     
-          if (added){
-            payload.code = 201
-            payload.message = "OK"
-          }else{
-            payload.code = 400
-            payload.message = "Bad Request"
-          }      
-      return {
-        headers: {
-          "Content-Type": "application/json",
-          "Last-Modified": new Date(payload.modifiedOn).toUTCString(),
-        },
-        statusCode: payload.code,
-        body: { posted: payload },
-      };
+        if (added) {
+          return {
+            statusCode: 201,
+            body: {
+              message: "OK",
+            },
+          };
+        } else {
+          return {
+            statusCode: 400,
+            body: {
+              message: "Bad Request",
+            },
+          };
+        }
+      } else {  
+
+        return {
+          statusCode: 500,
+          body: {
+            message: "Bad Request",
+          },
+        };
+      }
     } catch (payload) {
       // TODO: Error logging
       console.log(payload);
