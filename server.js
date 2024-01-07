@@ -26,7 +26,11 @@ app.get("/", function (req, res) {
 // without authentication
 app.get("/article", makeCallBack(findArticleById));
 app.get("/articles", makeCallBack(getAllArticles));
-
+app.get("/view/article",async (req,res)=>{
+  const article = await findArticleById(req)
+  console.log(article)
+  res.render("article",article.body)
+})
 app.use(makeCallBack(notFound));
 
 module.exports = app;

@@ -1,9 +1,13 @@
 const jwt = require("../../../modules/jwt");
+
 const makeGetArticleById = (getArticleById) => {
   return (findArticleById = async (httpRequest) => {
     const id = httpRequest.query.id;
 
-    const article = await getArticleById(id);
+    var article = await getArticleById(id);
+    article.authorId = "HasBeenRemoved"
+
+  
     return {
       statusCode: 201,
       body: article,

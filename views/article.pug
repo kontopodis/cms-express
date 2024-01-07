@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    style 
+      include ../public/stylesheets/style.css
+
+
+  body(class="body")
+    include ./sections/menu.pug
+    small Created On: #{createdOn}
+    div(class="article")
+        h1 #{title}
+        p #{content}
+    div 
+        
+        br
+        small Edited On: #{lastEditedOn}
+ 
+
+
+        
+
+    footer Copyright Kontopodis Emmanouil
