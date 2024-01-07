@@ -2,6 +2,7 @@ const jwt = require("../modules/jwt")
 const bcrypt = require("bcrypt")
 const userDB = require("../admin/users/data-access")
 const userService = require("./users/use-cases/")
+const responses = require("../modules/responses")
 const login = async (httpRequest) => {
       const headers = {
         "Content-Type": "application/json",
@@ -9,28 +10,18 @@ const login = async (httpRequest) => {
       try {
         let emailJS = httpRequest.body.email
         let pass = httpRequest.body.password
-        let emailL = emailJS.toLowerCase()
-        let email = emailL.trim()
-        let user = await userDB.findByEmail(email)
+   
 
-        if(!email || !pass){
-            return {
-                headers,
-                statusCode: 400,
-                body: {
-                    code: 400,
-                    message:"Bad Request"},
-              };
+        if(!emailJS || !pass){
+            return responses.badRequest
         }else{
+          let emailL = emailJS.toLowerCase()
+          let email = emailL.trim()
+          let user = await userDB.findByEmail(email)
             if(!user){
-                return {
-                    headers,
-                    statusCode: 401,
-                    body: {
-                        code: 401,
-                        message:"Invalid Email or Password"},
-                  };
+                return responses.notAthenticated
             }else{
+
         
                 let match = await bcrypt.compare(pass,user.password)
               
@@ -55,13 +46,7 @@ const login = async (httpRequest) => {
                         }
                     }
                 }else{
-                    return {
-                        headers,
-                        statusCode: 401,
-                        body: {
-                            code: 401,
-                            message:"Invalid Email or Password"},
-                      };
+                    return responses.notAthenticated
                 }
             }
         }
@@ -71,13 +56,7 @@ const login = async (httpRequest) => {
       } catch (payload) {
         // TODO: Error logging
         console.log(payload);
-        return {
-          headers,
-          statusCode: 400,
-          body: {
-            error: payload.message,
-          },
-        };
+        return responses.internalError
       }
     }
 

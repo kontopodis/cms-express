@@ -30,7 +30,7 @@ const makeArticleDB = (makeDB)=>{
     
     }
     const updateArticle = async (article)=>{
-        console.log(article)
+      
         let db = await makeDB();
         sql = `update cmsArticle set title= :title, content= :content ,imageUrl= :imageUrl, lastEditedOn = :lastEditedOn where id= :id`  
         let obj = {
@@ -46,7 +46,7 @@ const makeArticleDB = (makeDB)=>{
             if(error){
                 throw new Error(error)
             }else{
-                console.log(res)
+                
             }
         })
         return await res;

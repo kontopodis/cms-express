@@ -11,7 +11,7 @@ module.exports = dataTest = () => {
       let allUsers = await db.findAll();
       if(allUsers.length > 0){
         for(i=0;i<allUsers.length;i++){
-          await db.deleteUserById(allUsers[i].id);
+          await db.deleteUserByEmail(allUsers[i].email);
         }
       }
       let noneUser = await db.findAll()
@@ -97,7 +97,7 @@ module.exports = dataTest = () => {
     })
     it("Should delete a user by id", async () => {
       const db = userDB
-     const res = await db.deleteUserById(validUser.id);
+     const res = await db.deleteUserByEmail(validUser.email);
      expect(res.changes).to.be.equal(1)
     });
 

@@ -1,4 +1,5 @@
 const jwt = require("../../../modules/jwt")
+const responses = require("../../../modules/responses")
 const makeRemoveUser = (deleteUser) => {
     return (removeUser = async (httpRequest) => {
       const headers = {
@@ -7,35 +8,22 @@ const makeRemoveUser = (deleteUser) => {
    
       const token = httpRequest.headers.token
       const user = jwt.getTokensUser(token)
-  
-      if(user.role === "admin"){
+      if(!token || !user || !httpRequest.body.email){
+        return responses.badRequest
+      }else  if(user.role === "admin"){
        
         try {
   
-          const payload = await deleteUser(httpRequest.body.id)
-          return {
-            headers,
-            statusCode: 200,
-            body: payload,
-          };
-        } catch (payload) {
-          // TODO: Error logging
-          console.log(payload);
-          return {
-            headers,
-            statusCode: 400,
-            body: {
-              error: payload.message,
-            },
-          };
+          return await deleteUser(httpRequest.body.email)
+    
+        } catch (error) {
+          console.log(error);
+    
+          return responses.internalError
         }
       }else{
 
-        return {
-          headers,
-          statusCode:403,
-          message: "You are not authorized for that action"
-        }
+        return responses.notAuthorised
       }
     });
   };

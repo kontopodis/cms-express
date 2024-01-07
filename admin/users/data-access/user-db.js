@@ -60,10 +60,10 @@ const userMakeDB = (makeDB) => {
     let res = await db.run(sql,obj)
     return await res;
   };
-  const deleteUserById = async (id) => {
+  const deleteUserByEmail = async (email) => {
     let db = await makeDB();
-    let sql = "delete from cmsUser where id=?";
-    let res = await db.run(sql, id);
+    let sql = "delete from cmsUser where email=?";
+    let res = await db.run(sql, email);
     return await res;
   };
 
@@ -73,7 +73,7 @@ const userMakeDB = (makeDB) => {
     findByEmail,
     addUser,
     updateUserById,
-    deleteUserById,
+    deleteUserByEmail,
     isUserRole
   });
 };

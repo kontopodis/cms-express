@@ -3,7 +3,6 @@ const jwt = require("../modules/jwt");
 const jwtMiddleware = (req, res, next) => {
   let token = req.headers.token;
 
-
   if (!token) {
     forbitenResponse(res);
   } else {

@@ -1,11 +1,12 @@
 const jwt = require("../../../modules/jwt");
+const responses = require("../../../modules/responses")
 const makeUpdateUser = (updateUserUC) => {
   return (updateUser = async (httpRequest) => {
     const headers = {
       "Content-Type": "application/json",
     };
     try {
-      const id = httpRequest.body.id;
+      const email = httpRequest.body.email;
       const setting = httpRequest.body.case;
       const value = httpRequest.body.value;
 
@@ -18,25 +19,17 @@ const makeUpdateUser = (updateUserUC) => {
           setting === "toModerator" ||
           setting === "toReader"
         ) {
-          if (user.role === "admin" && id) {
+          if (user.role === "admin" && email) {
             const updateCase = {
-              id: id,
+              email: email,
               case: setting,
               value: value,
             };
          
-             await updateUserUC(updateCase);
-            return {
-              headers,
-              statusCode: 201,
-              message: "Changes Successful",
-            };
+         return await updateUserUC(updateCase);
+   
           } else {
-            return {
-              headers,
-              statusCode: 403,
-              message: "You are not authorized for this action",
-            };
+            return responses.notAuthorised
           }
         } else if (
           setting === "email" ||
@@ -48,36 +41,19 @@ const makeUpdateUser = (updateUserUC) => {
             case: setting,
             value: value,
           };
-          await updateUserUC(updateCase);
-          return {
-            headers,
-            statusCode: 201,
-            message: "Changes Successful",
-          };
+
+         return await updateUserUC(updateCase);
+
         } else {
-          return {
-            headers,
-            statusCode: 403,
-            message: "You are not authorized for this action",
-          };
+          return responses.notAuthorised
         }
       } else {
-        return {
-          headers,
-          statusCode: 400,
-          message: "Bad Request",
-        };
+        return responses.badRequest
       }
     } catch (payload) {
       // TODO: Error logging
       console.log(payload);
-      return {
-        headers,
-        statusCode: 500,
-        body: {
-          error: "Internal Error",
-        },
-      };
+      return responses.internalError
     }
   });
 };

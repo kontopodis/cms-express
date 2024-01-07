@@ -143,7 +143,7 @@ module.exports = () => {
       let allUsers = await db.findAll();
       if(allUsers.length > 0){
         for(i=0;i<allUsers.length;i++){
-          await db.deleteUserById(allUsers[i].id);
+          await db.deleteUserByEmail(allUsers[i].email);
         }
       }
       let noneUser = await db.findAll()

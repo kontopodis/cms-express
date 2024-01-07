@@ -1,10 +1,7 @@
 const jwt = require("../../../modules/jwt");
+const responses = require("../../../modules/responses")
 const makeGetUsers = (findAll) => {
   return (getUsers = async (httpRequest) => {
-    const headers = {
-      "Content-Type": "application/json",
-    };
- 
     const token = httpRequest.headers.token
     const user = jwt.getTokensUser(token)
     
@@ -13,28 +10,24 @@ const makeGetUsers = (findAll) => {
       try {
 
         const payload = await findAll();
+        var withHiddenData = [];
+        payload.forEach(element => {
+          element.password = "HasBeenRemoved"
+          element.id = "HasBeenRemoved"
+
+          withHiddenData.push(element)
+        });
         return {
-          headers,
           statusCode: 200,
-          body: payload,
+          body: withHiddenData,
         };
       } catch (payload) {
         // TODO: Error logging
         console.log(payload);
-        return {
-          headers,
-          statusCode: 400,
-          body: {
-            error: payload.message,
-          },
-        };
+        return responses.internalError
       }
     }else{
-      return {
-        headers,
-        statusCode:403,
-        message: "You are not authorized for that action"
-      }
+      return responses.notAuthorised
     }
 
 

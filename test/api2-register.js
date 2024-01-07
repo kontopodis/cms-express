@@ -30,4 +30,14 @@ describe("Register a user", () => {
 
     expect(response.status).to.be.equal(201);
   });
+  
+  it("Gets 409 when trying to register a user with an existing email",async ()=>{
+    const response = await request(app).post("/admin/dashboard/users").send({
+      username: "manos",
+      password: "1A_qwerty",
+      email: "manos123@gmail.com",
+    });
+
+    expect(response.status).to.be.equal(409);
+  })
 });

@@ -1,4 +1,5 @@
 const jwt = require("../../../modules/jwt");
+const responses = require("../../../modules/responses")
 const makeCreateUser = (addUser) => {
   return (createUser = async (httpRequest) => {
     try {
@@ -11,45 +12,14 @@ const makeCreateUser = (addUser) => {
           password:password,
           email: email
         }
-        let added = await addUser(user);
+        return await addUser(user);
 
-        if (added) {
-          return {
-            statusCode: 201,
-            body: {
-              message: "OK",
-            },
-          };
-        } else {
-          return {
-            statusCode: 400,
-            body: {
-              message: "Bad Request",
-            },
-          };
-        }
       } else {  
 
-        return {
-          statusCode: 500,
-          body: {
-            message: "Bad Request",
-          },
-        };
+        return responses.notAuthorised
       }
-    } catch (payload) {
-      // TODO: Error logging
-      console.log(payload);
-
-      return {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: payload.code,
-        body: {
-          error: payload.message,
-        },
-      };
+    } catch (error) {
+      return responses.internalError
     }
   });
 };
