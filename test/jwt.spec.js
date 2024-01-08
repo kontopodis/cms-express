@@ -1,10 +1,10 @@
-var { expect, assert } = require("chai");
-const makeUser = require("../../admin/users/user");
-const Id = require("../../admin/modules/id");
-const jwt = require("./index");
-const userCache = require("../cache/user-cache");
-module.exports = () => {
-  validUser = {
+import { expect, assert } from "chai"
+import makeUser from "../admin/users/user/index.js"
+import Id from "../admin/modules/id.js"
+import jwt from "../modules/jwt/index.js"
+import userCache from "../modules/cache/user-cache.js"
+
+  let validUser = {
     id: Id.createId(),
     username: "manos",
     password: "1_aAhsbx2",
@@ -15,7 +15,7 @@ module.exports = () => {
     lastLogin: Date.now(),
   };
 
-  user = makeUser(validUser);
+  let user = makeUser(validUser);
   describe("JWT Tests", () => {
     before("preparing cache",()=>{
       jwt.flushAll()
@@ -57,4 +57,4 @@ module.exports = () => {
       expect(obj.keys).to.be.equal(0);
     });
   });
-};
+

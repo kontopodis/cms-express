@@ -1,7 +1,8 @@
-const jwt = require("../../../modules/jwt")
-const responses = require("../../../modules/responses")
-const makeRemoveUser = (deleteUser) => {
-    return (removeUser = async (httpRequest) => {
+import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
+import {deleteUser} from "../use-cases/index.js"
+const makeRemoveUser = () => {
+    return async function removeUser (httpRequest){
       const headers = {
         "Content-Type": "application/json",
       };
@@ -25,8 +26,8 @@ const makeRemoveUser = (deleteUser) => {
 
         return responses.notAuthorised
       }
-    });
+    }
   };
   
-  module.exports = makeRemoveUser
+  export default makeRemoveUser
   

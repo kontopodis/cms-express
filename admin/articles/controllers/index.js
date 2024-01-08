@@ -1,9 +1,9 @@
-const articleService = require("../use-cases");
-const makeCreateArticle = require("./createArticle");
-const makeDeleteArticle = require("./deleteArticle");
-const makeUpdateArticle = require("./updateArticle");
-const makeGetAllArticles = require("./getAllArticles");
-const makeGetArticleById = require("./getArticleById");
+import articleService from "../use-cases/index.js"
+import makeCreateArticle from "./createArticle.js"
+import makeDeleteArticle from "./deleteArticle.js"
+import makeUpdateArticle from "./updateArticle.js"
+import makeGetAllArticles from "./getAllArticles.js"
+import makeGetArticleById from "./getArticleById.js"
 
 const createArticle = makeCreateArticle(articleService.addArticle);
 const deleteArticle = makeDeleteArticle(articleService.deleteArticle);
@@ -18,5 +18,11 @@ const articleController = Object.freeze({
   getAllArticles,
   findArticleById,
 });
-
-module.exports = articleController;
+export{
+  createArticle,
+  deleteArticle,
+  updateArticle,
+  getAllArticles,
+  findArticleById,
+}
+export default  articleController;

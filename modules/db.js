@@ -1,5 +1,5 @@
-const sqlite3 = require("sqlite3").verbose();
-const {open} = require("sqlite")
+import sqlite3 from "sqlite3";
+import {open} from "sqlite"
 
 const makeDB = async () => {
     return  await open({
@@ -9,4 +9,4 @@ const makeDB = async () => {
     
 };
 
-module.exports = makeDB
+export default makeDB

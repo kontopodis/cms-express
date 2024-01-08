@@ -1,4 +1,4 @@
-var validator = require("email-validator");
-module.exports= (email)=>{
+import validator from "email-validator"
+export default (email)=>{
     return validator.validate(email)
 }

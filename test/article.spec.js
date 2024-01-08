@@ -1,6 +1,6 @@
-const makeArticle = require("./index")
-const modules = require("../../modules")
-const {expect} = require("chai")
+import makeArticle from "../admin/articles/article/index.js"
+import modules from "../admin/modules/index.js"
+import {expect} from "chai"
 const validArticle={
     id:modules.createId(),
     authorId:modules.createId(),
@@ -18,7 +18,7 @@ const invalidArticle={
 
 }
 
-const articleTests = () =>{
+
     describe("Article tests",()=>{
         it("Should create an Article instance",()=>{
             const article = makeArticle(validArticle)
@@ -29,6 +29,5 @@ const articleTests = () =>{
             expect(()=>makeArticle(invalidArticle)).to.throw("Article must have a title")
         })
     })
-}
 
-module.exports = articleTests
+

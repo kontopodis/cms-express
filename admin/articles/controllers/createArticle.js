@@ -1,6 +1,6 @@
-const jwt = require("../../../modules/jwt");
+import jwt from "../../../modules/jwt/index.js"
 const makeCreateArticle = (addArticle) => {
-  return (createArticle = async (httpRequest) => {
+  return async function createArticle (httpRequest){
     const token = httpRequest.headers.token;
     const user = jwt.getTokensUser(token);
     if (user.role === "admin" || user.role === "moderator") {
@@ -43,7 +43,7 @@ const makeCreateArticle = (addArticle) => {
         body: { message: "You are not authorised for this action" },
       };
     }
-  });
+  }
 };
 
-module.exports = makeCreateArticle;
+export default makeCreateArticle;

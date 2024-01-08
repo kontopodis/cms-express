@@ -1,15 +1,14 @@
-const makeCreateUser = require("./createUser")
-const makeGetUsers = require("./getUsers")
-const makeRemoveUser = require("./removeUser")
-const makeUpdateUser= require("./updateUser")
-const userService = require("../use-cases")
+import makeCreateUser from "./createUser.js"
+import makeGetUsers from "./getUsers.js"
+import makeRemoveUser from "./removeUser.js"
+import makeUpdateUser from "./updateUser.js"
 
 
-const createUser = makeCreateUser(userService.addUser)
-const getUsers = makeGetUsers(userService.findAll)
-const removeUser = makeRemoveUser(userService.deleteUser)
-const updateUser = makeUpdateUser(userService.updateUser)
-const userController = Object.freeze(
+const createUser = makeCreateUser()
+const getUsers = makeGetUsers()
+const removeUser = makeRemoveUser()
+const updateUser = makeUpdateUser()
+var userController = Object.freeze(
     {
         createUser,
         getUsers,
@@ -18,4 +17,11 @@ const userController = Object.freeze(
     }
 )
 
-module.exports = userController
+
+export {
+    createUser,
+    getUsers,
+    removeUser,
+    updateUser
+}
+export default userController

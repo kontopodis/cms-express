@@ -1,7 +1,8 @@
-const jwt = require("../../../modules/jwt");
-const responses = require("../../../modules/responses")
-const makeGetUsers = (findAll) => {
-  return (getUsers = async (httpRequest) => {
+import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
+import {findAll} from "../use-cases/index.js"
+const makeGetUsers = () => {
+  return async function getUsers (httpRequest){
     const token = httpRequest.headers.token
     const user = jwt.getTokensUser(token)
     
@@ -31,7 +32,7 @@ const makeGetUsers = (findAll) => {
     }
 
 
-  });
+  }
 };
 
-module.exports = makeGetUsers
+export default makeGetUsers

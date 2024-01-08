@@ -1,16 +1,16 @@
-const express = require("express");
-const app = express.Router();
-const log = require("../modules/log");
-const makeCallBack = require("../express-callback");
-const jwtMiddleware = require("../middlewares/jwt-middlesware")
-const login = require("./login")
-const {
+import express from "express"
+const app = express.Router()
+import log from "../modules/log.js"
+import makeCallBack from "../express-callback/index.js"
+import jwtMiddleware from "../middlewares/jwt-middlesware.js"
+import login from "./login.js"
+import {
   createUser,
   getUsers,
   removeUser,
   updateUser,
-} = require("./users/controllers");
-const articlesRouter = require("./articles")
+} from "./users/controllers/index.js"
+import articlesRouter from "./articles/index.js"
 
 
 app.use("/dashboard/",articlesRouter)
@@ -28,4 +28,4 @@ app.delete("/dashboard/users",jwtMiddleware, makeCallBack(removeUser));
 //Only Admins or the owner of that userInstance
 app.patch("/dashboard/users",jwtMiddleware, makeCallBack(updateUser));
 
-module.exports = app;
+export default app

@@ -1,6 +1,6 @@
-const buildMakeUser = require("./user")
-const modules = require("../../modules")
+import buildMakeUser from "./user.js"
+import modules from "../../modules/index.js"
 
 const makeUser = buildMakeUser({modules})
 
-module.exports = makeUser
+export default makeUser

@@ -1,8 +1,10 @@
-const makeFindAll = (userDB)=>{
-    return  findAll = async ()=>{
+import userDB from "../data-access/index.js";
+const makeFindAll = ()=>{
+    const findAll = async ()=>{
         const db = userDB
         return await db.findAll();
     }
+    return findAll
 
 }
-module.exports = makeFindAll
+export default makeFindAll

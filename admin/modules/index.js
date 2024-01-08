@@ -1,6 +1,6 @@
-const Id = require("./id")
-const Pass = require("./password")
-const Email = require("./email")
+import Id from "./id.js"
+import Pass from "./password.js"
+import Email from "./email.js"
 
 
 const modules = Object.freeze({
@@ -10,4 +10,4 @@ const modules = Object.freeze({
     createId: ()=> Id.createId()
 })
 
-module.exports = modules
+export default modules

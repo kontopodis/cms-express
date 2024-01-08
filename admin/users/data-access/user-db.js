@@ -47,7 +47,7 @@ const userMakeDB = (makeDB) => {
   };
   const updateUserById = async ( user) => {
     let db = await makeDB();
-    sql = `update cmsUser set username= :username, password= :password ,role= :role, email = :email, lastLogin = :lastLogin where id= :id`  
+    let sql = `update cmsUser set username= :username, password= :password ,role= :role, email = :email, lastLogin = :lastLogin where id= :id`  
     let obj = {
       ":id":user.getId(),
       ":username": user.getUsername(),
@@ -78,4 +78,4 @@ const userMakeDB = (makeDB) => {
   });
 };
 
-module.exports = userMakeDB;
+export default userMakeDB;

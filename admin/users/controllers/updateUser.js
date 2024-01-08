@@ -1,7 +1,8 @@
-const jwt = require("../../../modules/jwt");
-const responses = require("../../../modules/responses")
-const makeUpdateUser = (updateUserUC) => {
-  return (updateUser = async (httpRequest) => {
+import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
+import {updateUser as updateUserUC} from "../use-cases/index.js"
+const makeUpdateUser = () => {
+  return async function updateUser (httpRequest){
     const headers = {
       "Content-Type": "application/json",
     };
@@ -19,12 +20,14 @@ const makeUpdateUser = (updateUserUC) => {
           setting === "toModerator" ||
           setting === "toReader"
         ) {
+ 
           if (user.role === "admin" && email) {
             const updateCase = {
               email: email,
               case: setting,
               value: value,
             };
+       
          
          return await updateUserUC(updateCase);
    
@@ -55,7 +58,7 @@ const makeUpdateUser = (updateUserUC) => {
       console.log(payload);
       return responses.internalError
     }
-  });
+  }
 };
 
-module.exports = makeUpdateUser;
+export default makeUpdateUser;

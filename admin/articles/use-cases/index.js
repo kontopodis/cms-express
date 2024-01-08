@@ -1,9 +1,9 @@
-const articleDB = require("../data-access")
-const makeUpdateArticle = require("./updateArticle")
-const makeAddArticle = require("./addArticle")
-const makeDeleteArticle = require("./deleteArticle")
-const makeGetAllArticles = require("./getAllArticles")
-const makeGetArticleById = require("./getArticleById")
+import articleDB from "../data-access/index.js"
+import makeUpdateArticle from "./updateArticle.js"
+import makeAddArticle from "./addArticle.js"
+import makeDeleteArticle from "./deleteArticle.js"
+import makeGetAllArticles from "./getAllArticles.js"
+import makeGetArticleById from "./getArticleById.js"
 
 const addArticle = makeAddArticle(articleDB)
 const updateArticle = makeUpdateArticle(articleDB)
@@ -18,5 +18,11 @@ const articleService = Object.freeze({
     getAllArticles,
     getArticleById,
 })
-
-module.exports = articleService
+export{
+    addArticle,
+    deleteArticle,
+    updateArticle,
+    getAllArticles,
+    getArticleById,
+}
+export default articleService

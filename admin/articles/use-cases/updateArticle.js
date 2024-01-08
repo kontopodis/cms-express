@@ -1,6 +1,6 @@
-const makeArticle = require("../article")
+import makeArticle from "../article/index.js"
 const makeUpdateArticle = (articleDB) =>{
-    return (updateArticle = async (articleData)=>{
+    const updateArticle = async (articleData)=>{
         const article = makeArticle(articleData)
         const res = await articleDB.updateArticle(article)
         console.log(res)
@@ -9,6 +9,7 @@ const makeUpdateArticle = (articleDB) =>{
         }else{
             return false
         }
-    })
+    }
+    return updateArticle
 }
-module.exports = makeUpdateArticle
+export default makeUpdateArticle

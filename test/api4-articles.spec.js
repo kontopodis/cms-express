@@ -1,6 +1,6 @@
-const {expect} = require("chai")
-const request = require("supertest");
-const app = require("../server");
+import {expect} from "chai"
+import request from "supertest"
+import app from "../server.js"
 
 let token;
 describe("Article tests",()=>{

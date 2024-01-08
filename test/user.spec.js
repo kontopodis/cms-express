@@ -1,7 +1,6 @@
-const makeUser = require("./index");
-const Id = require("../../modules/id");
-const modules = require("../../modules")
-var { expect, assert } = require("chai");
+import makeUser from "../admin/users/user/index.js"
+import Id from "../admin/modules/id.js"
+import { expect, assert } from "chai"
 
 const validUser={
     id : Id.createId(),
@@ -25,7 +24,6 @@ const invalidUserPassword={
     lastLogin : Date.now(),
 }
 
-module.exports = ()=>{
     describe("User Entity Tests",()=>{
         it("These should work",()=>{
            
@@ -42,4 +40,3 @@ module.exports = ()=>{
         })
 
     })
-}

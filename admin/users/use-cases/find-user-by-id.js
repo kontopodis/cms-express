@@ -1,8 +1,8 @@
-const makeFindUserById = (userDB)=>{
-    return  findUserById = async (id)=>{
-        const db = userDB
-                return await db.findById(id);
-                }
-
-}
-module.exports = makeFindUserById
+import userDB from "../data-access/index.js";
+const makeFindUserById = () => {
+  const findUserById = async (id) => {
+    return await userDB.findById(id);
+  };
+  return findUserById;
+};
+export default makeFindUserById;

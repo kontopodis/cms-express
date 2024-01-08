@@ -1,17 +1,17 @@
-const express = require("express");
+import express from "express"
 const app = express.Router();
-const makeCallBack = require("../../express-callback");
-const jwtMiddleware = require("../../middlewares/jwt-middlesware");
+import makeCallBack from "../../express-callback/index.js"
+import jwtMiddleware from "../../middlewares/jwt-middlesware.js"
 
-const {
+import {
   createArticle,
   updateArticle,
   deleteArticle,
-} = require("./controllers");
+} from "./controllers/index.js"
 
 //Only Admins && Moderators Access
 app.post("/articles", jwtMiddleware, makeCallBack(createArticle));
 app.delete("/articles", jwtMiddleware, makeCallBack(deleteArticle));
 app.patch("/articles", jwtMiddleware, makeCallBack(updateArticle));
 
-module.exports = app;
+export default app;

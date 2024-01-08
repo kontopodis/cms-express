@@ -25,4 +25,4 @@ const responses = Object.freeze({
     }
 })
 
-module.exports = responses
+export default responses

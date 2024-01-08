@@ -1,6 +1,7 @@
 const makeGetAllArticles = (articleDB)=>{
-    return (getAllArticles = async ()=>{
+    const getAllArticles = async ()=>{
         return await articleDB.findAll()
-    })
+    }
+    return getAllArticles
 }
-module.exports = makeGetAllArticles
+export default makeGetAllArticles

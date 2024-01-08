@@ -1,18 +1,21 @@
-const jwt = require("../../../modules/jwt");
-
+import responses from "../../../modules/responses.js"
 const makeGetArticleById = (getArticleById) => {
-  return (findArticleById = async (httpRequest) => {
+  return async function findArticleById(httpRequest){
     const id = httpRequest.query.id;
 
     var article = await getArticleById(id);
-    article.authorId = "HasBeenRemoved"
 
-  
-    return {
-      statusCode: 201,
-      body: article,
-    };
-  });
+    if(!article){
+      return responses.badRequest
+    }else{
+      article.authorId = "HasBeenRemoved"
+      return {
+        statusCode: 201,
+        body: article,
+      };
+    }
+ 
+  }
 };
 
-module.exports = makeGetArticleById;
+export default  makeGetArticleById;

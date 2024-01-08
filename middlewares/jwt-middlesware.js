@@ -1,4 +1,4 @@
-const jwt = require("../modules/jwt");
+import jwt from "../modules/jwt/index.js"
 
 const jwtMiddleware = (req, res, next) => {
   let token = req.headers.token;
@@ -25,4 +25,4 @@ const forbitenResponse = (res) => {
   res.type("json");
   res.status(403).send(message);
 };
-module.exports = jwtMiddleware;
+export default jwtMiddleware;

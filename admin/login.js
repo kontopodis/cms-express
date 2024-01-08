@@ -1,8 +1,8 @@
-const jwt = require("../modules/jwt")
-const bcrypt = require("bcrypt")
-const userDB = require("../admin/users/data-access")
-const userService = require("./users/use-cases/")
-const responses = require("../modules/responses")
+import jwt from "../modules/jwt/index.js"
+import bcrypt from "bcrypt"
+import userDB from "../admin/users/data-access/index.js"
+import userService from "./users/use-cases/index.js"
+import responses from "../modules/responses.js"
 const login = async (httpRequest) => {
       const headers = {
         "Content-Type": "application/json",
@@ -61,5 +61,5 @@ const login = async (httpRequest) => {
     }
 
   
-  module.exports = login
+export default login
   

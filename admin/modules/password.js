@@ -1,4 +1,4 @@
-var passwordValidator = require('password-validator');
+import passwordValidator from 'password-validator'
 
 
 // Create a schema
@@ -31,4 +31,4 @@ const Pass = Object.freeze({
     isValid : (password)=> isValid(password)
 })
 
-module.exports = Pass;
+export default Pass;

@@ -1,6 +1,6 @@
-const buildMakeArticle = require("./article")
-const modules = require("../../modules")
+import buildMakeArticle from "./article.js"
+import modules from "../../modules/index.js"
 
 const makeArticle = buildMakeArticle({modules})
 
-module.exports = makeArticle
+export default makeArticle

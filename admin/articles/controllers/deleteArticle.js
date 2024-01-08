@@ -1,6 +1,6 @@
-const jwt = require("../../../modules/jwt");
+import jwt from "../../../modules/jwt/index.js"
 const makeDeleteArticle = (deleteArticleUC) => {
-  return (deleteArticle = async (httpRequest) => {
+  return async function deleteArticle (httpRequest){
     const token = httpRequest.headers.token;
     const user = jwt.getTokensUser(token);
 
@@ -34,7 +34,7 @@ const makeDeleteArticle = (deleteArticleUC) => {
         },
       };
     }
-  });
+  }
 };
 
-module.exports = makeDeleteArticle;
+export default  makeDeleteArticle;

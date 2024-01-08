@@ -1,7 +1,7 @@
-const articleDB =  require("./index")
-const {expect} = require("chai")
-const modules = require("../../modules")
-const makeArticle = require("../article/index")
+import articleDB from "../admin/articles/data-access/index.js"
+import {expect} from "chai"
+import modules from "../admin/modules/index.js"
+import makeArticle from "../admin/articles/article/index.js"
 const validArticle={
     id:modules.createId(),
     authorId:modules.createId(),
@@ -18,11 +18,11 @@ const invalidArticle={
     imageUrl:"sample/url",
 
 }
-const articleDbTests = ()=>{
+
 describe("Articles Database Tests",()=>{
     after(async ()=>{
         const articles = await articleDB.findAll()
-        for (i=0;i<articles.length;i++){
+        for (let i=0;i<articles.length;i++){
             await articleDB.deleteArticle(articles[i].id)
         } 
         const ar = await articleDB.findAll()
@@ -57,6 +57,5 @@ article.setContent("Updated content")
         expect(res.changes).to.be.equal(1)
     })
 })
-}
 
-module.exports = articleDbTests
+

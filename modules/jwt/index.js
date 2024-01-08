@@ -1,5 +1,5 @@
-const { generateAccessToken, verifyAccessToken } = require("./jwt");
-const { insertToken, deleteToken, getTokensUser,flushAll } = require("./jwt-cache");
+import { generateAccessToken, verifyAccessToken } from "./jwt.js"
+import { insertToken, deleteToken, getTokensUser,flushAll } from "./jwt-cache.js"
 const jwt = Object.freeze({
   generateToken: (user) => generateAccessToken(user),
   verifyToken: (user) => verifyAccessToken(user),
@@ -9,4 +9,4 @@ const jwt = Object.freeze({
   flushAll: ()=> flushAll()
 });
 
-module.exports = jwt;
+export default jwt

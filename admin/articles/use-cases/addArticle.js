@@ -1,7 +1,7 @@
-const makeArticle = require("../article");
+import makeArticle from "../article/index.js"
 
 const makeAddArticle = (articleDB) => {
-  return (addArticle = async (articleData) => {
+  const addArticle = async (articleData) => {
     const article = makeArticle(articleData);
     const res = await articleDB.addArticle(article);
     if (res.changes == 1) {
@@ -9,7 +9,8 @@ const makeAddArticle = (articleDB) => {
     } else {
       return false;
     }
-  });
+  }
+  return addArticle
 };
 
-module.exports = makeAddArticle;
+export default makeAddArticle;

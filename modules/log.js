@@ -20,4 +20,4 @@ function log (message,color="white"){
     }
 }
 
-module.exports =  log
+export default log

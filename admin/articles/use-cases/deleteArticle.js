@@ -1,5 +1,5 @@
 const makeDeleteArticle = (articleDB) =>{
-    return (deleteArticle = async (id) =>{
+    const deleteArticle = async (id) =>{
         
         const res = await articleDB.deleteArticle(id)
         if(res){
@@ -7,6 +7,7 @@ const makeDeleteArticle = (articleDB) =>{
         }else{
             return false
         }
-    })
+    }
+    return deleteArticle
 }
-module.exports = makeDeleteArticle
+export default makeDeleteArticle

@@ -1,7 +1,7 @@
-const jwt = require("../../../modules/jwt");
-const responses = require("../../../modules/responses")
-const makeCreateUser = (addUser) => {
-  return (createUser = async (httpRequest) => {
+import responses from "../../../modules/responses.js"
+import { addUser} from "../use-cases/index.js";
+const makeCreateUser = () => {
+  return async function createUser (httpRequest) {
     try {
       const username = httpRequest.body.username;
       const password = httpRequest.body.password;
@@ -19,9 +19,10 @@ const makeCreateUser = (addUser) => {
         return responses.notAuthorised
       }
     } catch (error) {
+      console.log(error)
       return responses.internalError
     }
-  });
+  }
 };
 
-module.exports = makeCreateUser;
+export default makeCreateUser;

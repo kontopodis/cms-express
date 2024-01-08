@@ -1,6 +1,6 @@
-const {expect} = require("chai")
-const articleService = require("./index")
-const modules = require("../../modules")
+import {expect} from "chai"
+import articleService from "../admin/articles/use-cases/index.js"
+import modules from "../admin/modules/index.js"
 const validArticle={
     id:modules.createId(),
     authorId:modules.createId(),
@@ -25,7 +25,7 @@ const invalidArticle={
     imageUrl:"sample/url",
 
 }
-module.exports = ()=>{
+
     describe("Article Use Cases",()=>{
         after("clean up",async ()=>{
             const articles = await articleService.getAllArticles()
@@ -53,4 +53,3 @@ module.exports = ()=>{
             expect(res.length).to.be.above(1)
         })
     })
-}

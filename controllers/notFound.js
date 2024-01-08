@@ -8,4 +8,4 @@ async function notFound () {
     }
   }
 
-  module.exports = notFound
+ export default notFound

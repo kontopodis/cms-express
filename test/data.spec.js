@@ -1,16 +1,16 @@
-const userDB = require("./index");
-const Id = require("../../modules/id");
-const { expect, assert } = require("chai");
-const userMakeDB = require("./user-db");
-const makeUser = require("../user/index");
-module.exports = dataTest = () => {
+import userDB from "../admin/users/data-access/index.js"
+import Id from "../admin/modules/id.js"
+import { expect, assert } from "chai"
+import userMakeDB from "../admin/users/data-access/user-db.js"
+import makeUser from "../admin/users/user/index.js"
+
   describe("Database Tests", () => {
     after("Cleaning up", async () => {
       const db = userDB
 
       let allUsers = await db.findAll();
       if(allUsers.length > 0){
-        for(i=0;i<allUsers.length;i++){
+        for(let i=0;i<allUsers.length;i++){
           await db.deleteUserByEmail(allUsers[i].email);
         }
       }
@@ -58,7 +58,7 @@ module.exports = dataTest = () => {
       const id = user.getId();
       expect(id).to.be.equal(validUser.id);
       let result = await db.addUser(user);
-      let userInDB = await db.findById(id);
+      let userInDB = await db.findByEmail(user.getEmail());
       expect(await userInDB.id).to.be.equal(id);
       expect(result).to.be.a("object");
     });
@@ -103,4 +103,4 @@ module.exports = dataTest = () => {
 
 
   });
-};
+

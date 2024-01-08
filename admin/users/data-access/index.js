@@ -1,6 +1,6 @@
-const makeDB = require("../../../modules/db")
-const userMakeDB = require("./user-db")
+import makeDB from "../../../modules/db.js"
+import userMakeDB from "./user-db.js"
 
 const userDB = userMakeDB(makeDB)
 
-module.exports = userDB
+export default userDB

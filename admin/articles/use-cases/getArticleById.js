@@ -1,6 +1,7 @@
 const makeGetArticleById = (articleDB)=>{
-    return (getArticleById = async (id)=>{
+    const getArticleById = async (id)=>{
         return await articleDB.findById(id)
-    })
+    }
+    return getArticleById 
 }
-module.exports = makeGetArticleById
+export default makeGetArticleById

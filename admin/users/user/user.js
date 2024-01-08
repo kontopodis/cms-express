@@ -1,7 +1,7 @@
 
 
-module.exports = buildMakeUser = ({modules} ) => {
-  return (makeUser = ({
+const buildMakeUser = ({modules} ) => {
+ const  makeUser = ({
     id = modules.createId(),
     username,
     password,
@@ -76,5 +76,7 @@ module.exports = buildMakeUser = ({modules} ) => {
         }
       }
     });
-  });
+  };
+  return makeUser
 };
+export default  buildMakeUser

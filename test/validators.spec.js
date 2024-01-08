@@ -1,13 +1,13 @@
-const Pass = require("./password");
-const Id = require("./id");
-const encryptOassword = require("./encrypt")
-const bcrypt = require('bcrypt');
-const userDB = require("../users/data-access")
-const makeUser = require("../users/user")
-var { expect, assert } = require("chai");
-const validator = require("./email");
-const validators = require("./index");
-module.exports = () => {
+import Pass from "../admin/modules/password.js"
+import Id from "../admin/modules/id.js"
+import encryptOassword from "../admin/modules/encrypt.js"
+import bcrypt from 'bcrypt'
+import userDB from "../admin/users/data-access/index.js"
+import makeUser from "../admin/users/user/index.js"
+import { expect, assert } from "chai"
+import validator from "../admin/modules/email.js"
+import validators from "../admin/modules/index.js"
+
   describe("Id tests", () => {
     let id = Id.createId();
     it("Is new id created?", () => {
@@ -142,7 +142,7 @@ module.exports = () => {
 
       let allUsers = await db.findAll();
       if(allUsers.length > 0){
-        for(i=0;i<allUsers.length;i++){
+        for(let i=0;i<allUsers.length;i++){
           await db.deleteUserByEmail(allUsers[i].email);
         }
       }
@@ -168,4 +168,4 @@ module.exports = () => {
     })
    })
    
-};
+

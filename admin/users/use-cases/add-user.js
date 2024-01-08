@@ -1,9 +1,9 @@
-const makeUser = require("../user");
-const encryptPassword = require("../../modules/encrypt");
-const validators = require("../../modules/index");
-const responses = require("../../../modules/responses")
-const makeAddUser = (userDB) => {
-  return (addUser = async (userInfo) => {
+import makeUser from "../user/index.js"
+import encryptPassword from "../../modules/encrypt.js"
+import validators from "../../modules/index.js"
+import responses from "../../../modules/responses.js"
+const makeAddUser = ({userDB}) => {
+ return async function addUser(userInfo){
     const db = userDB;
 
     if (
@@ -33,6 +33,7 @@ const makeAddUser = (userDB) => {
     } else {
       return responses.badRequest
     }
-  });
+  };
+  
 };
-module.exports = makeAddUser;
+export default makeAddUser;

@@ -1,4 +1,4 @@
-const makeDB = require("../../../modules/db")
-const makeArticleDB = require("./articleDb")
+import makeDB from "../../../modules/db.js"
+import makeArticleDB from "./articleDb.js"
 const articleDB = makeArticleDB(makeDB)
-module.exports = articleDB
+export default articleDB

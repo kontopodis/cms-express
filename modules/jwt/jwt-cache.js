@@ -1,4 +1,4 @@
-const userCache = require("../cache/user-cache");
+import userCache from "../cache/user-cache.js"
 const insertToken = (token, user) => {
   return userCache.set(token, user);
 };
@@ -14,4 +14,4 @@ const flushAll = ()=>{
   userCache.flushAll()
 }
 
-module.exports = { insertToken, deleteToken, getTokensUser,flushAll };
+export { insertToken, deleteToken, getTokensUser,flushAll };

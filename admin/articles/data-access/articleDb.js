@@ -2,12 +2,12 @@ const makeArticleDB = (makeDB)=>{
 
     const findById = async (id)=>{
         let db =  await makeDB()
-        sql = "SELECT * FROM cmsArticle WHERE id=?"
+        let sql = "SELECT * FROM cmsArticle WHERE id=?"
         return await db.get(sql,id)
     }
     const findAll = async () =>{
         let db =  await makeDB()
-        sql = "SELECT * FROM cmsArticle"
+        let sql = "SELECT * FROM cmsArticle"
         return await db.all(sql)
     }
     const addArticle = async (article)=>{
@@ -32,7 +32,7 @@ const makeArticleDB = (makeDB)=>{
     const updateArticle = async (article)=>{
       
         let db = await makeDB();
-        sql = `update cmsArticle set title= :title, content= :content ,imageUrl= :imageUrl, lastEditedOn = :lastEditedOn where id= :id`  
+        let sql = `update cmsArticle set title= :title, content= :content ,imageUrl= :imageUrl, lastEditedOn = :lastEditedOn where id= :id`  
         let obj = {
           ":id":article.getId(),
           ":title": article.getTitle(),
@@ -53,7 +53,7 @@ const makeArticleDB = (makeDB)=>{
     }
     const deleteArticle = async (id) =>{
         let db =  await makeDB()
-        sql = "DELETE FROM cmsArticle WHERE id=?"
+        let sql = "DELETE FROM cmsArticle WHERE id=?"
         return await db.run(sql,id)
     }
 
@@ -68,4 +68,4 @@ const makeArticleDB = (makeDB)=>{
 
 }
 
-module.exports = makeArticleDB
+export default makeArticleDB
