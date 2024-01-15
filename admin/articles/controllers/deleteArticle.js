@@ -1,4 +1,5 @@
 import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
 const makeDeleteArticle = (deleteArticleUC) => {
   return async function deleteArticle (httpRequest){
     const token = httpRequest.headers.token;
@@ -6,33 +7,18 @@ const makeDeleteArticle = (deleteArticleUC) => {
 
     if (user.role === "admin" || user.role === "moderator") {
       const id = httpRequest.body.id;
-      console.log(id);
+     
       if (id) {
         const res = await deleteArticleUC(id);
-        console.log(res);
+      
         if (res) {
-          return {
-            statusCode: 201,
-            body: {
-              message: "OK",
-            },
-          };
+          return responses.ok
         } else {
-          return {
-            statusCode: 500,
-            body: {
-              message: "Internal Error",
-            },
-          };
+          return responses.internalError
         }
       }
     } else {
-      return {
-        statusCode: 403,
-        body: {
-          message: "You are not authorized for this action",
-        },
-      };
+      return responses.notAuthorised
     }
   }
 };

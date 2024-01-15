@@ -1,4 +1,5 @@
 import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
 const makeUpdateArticle = (updateArticleUC) => {
   return async function updateArticle (httpRequest){
     const token = httpRequest.headers.token;
@@ -18,31 +19,14 @@ const makeUpdateArticle = (updateArticleUC) => {
           imageUrl: imageUrl,
         };
 
-        console.log(article);
-        const res = await updateArticleUC(article);
-        console.log(res);
-        if (res) {
-          return {
-            statusCode: 201,
-            body: "OK",
-          };
-        } else {
-          return {
-            statusCode: 500,
-            body: "Internal Error",
-          };
-        }
+         
+        return await updateArticleUC(article);
+        
       } else {
-        return {
-          statusCode: 400,
-          body: { message: "Bad Request" },
-        };
+        return responses.badRequest
       }
     } else {
-      return {
-        statusCode: 403,
-        body: { message: "You are not authorised for this action" },
-      };
+      return responses.notAuthorised
     }
   }
 };

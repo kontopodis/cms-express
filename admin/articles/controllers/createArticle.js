@@ -1,4 +1,5 @@
 import jwt from "../../../modules/jwt/index.js"
+import responses from "../../../modules/responses.js"
 const makeCreateArticle = (addArticle) => {
   return async function createArticle (httpRequest){
     const token = httpRequest.headers.token;
@@ -9,7 +10,7 @@ const makeCreateArticle = (addArticle) => {
       const title = httpRequest.body.title;
       const content = httpRequest.body.content;
       const imageUrl = httpRequest.body.imageUrl;
-      if (authorId || title || content || imageUrl) {
+      if (authorId && title && content && imageUrl) {
         const article = {
           authorId:authorId,
           title: title,
@@ -19,31 +20,18 @@ const makeCreateArticle = (addArticle) => {
 
         const res = addArticle(article);
         if (res) {
-          return {
-            statusCode: 201,
-            body: {
-              message: "OK"
-            }
-          };
+          return responses.ok
         } else {
-          return {
-            statusCode: 500,
-            body: "Internal Error",
-          };
+          return responses.internalError
         }
       } else {
-        return {
-          statusCode: 400,
-          body: { message: "Bad Request" },
-        };
+        return responses.badRequest
       }
     } else {
-      return {
-        statusCode: 403,
-        body: { message: "You are not authorised for this action" },
+      return responses.notAuthorised
       };
     }
   }
-};
+
 
 export default makeCreateArticle;

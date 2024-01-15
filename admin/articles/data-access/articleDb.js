@@ -42,13 +42,7 @@ const makeArticleDB = (makeDB)=>{
           
         };
     
-        let res = await db.run(sql,obj,(error, res)=>{
-            if(error){
-                throw new Error(error)
-            }else{
-                
-            }
-        })
+        let res = await db.run(sql,obj)
         return await res;
     }
     const deleteArticle = async (id) =>{

@@ -40,7 +40,7 @@ const invalidArticle={
         it("Should update an article ",async ()=>{
             validArticle.content = "Updated article"
             const res = await articleService.updateArticle(validArticle)
-            expect(res).to.be.true
+            expect(res.statusCode).to.be.equal(201)
         })
         it("Should give an article by id", async ()=>{
             const res = await articleService.getArticleById(validArticle.id)
