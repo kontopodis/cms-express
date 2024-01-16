@@ -2,6 +2,7 @@ import { expect } from "chai"
 import request from "supertest"
 import app from "../server.js"
 
+
 describe("Register a user", () => {
   it("Gets 400 for invalid password", async () => {
     const response = await request(app).post("/admin/dashboard/users").send({
