@@ -142,14 +142,14 @@ describe("Authenticate a user", () => {
   it("Gets 401 for invalid email syntax", async () => {
     const response = await request(app).post("/admin/login").send({
       email: "manos123@gmail.com",
-      password: "1A#dcfddsfvbedfgvb",
+      password: "1A_dcfddsfvbedfgvb",
     });
 
     expect(response.status).to.be.equal(401);
   });
   it("Gets 400 for not providing email", async () => {
     const response = await request(app).post("/admin/login").send({
-      password: "1A#dcfddsfvbedfgvb",
+      password: "1A_dcfddsfvbedfgvb",
     });
 
     expect(response.status).to.be.equal(400);

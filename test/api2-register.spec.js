@@ -16,7 +16,7 @@ describe("Register a user", () => {
   it("Gets 400 for invalid email syntax", async () => {
     const response = await request(app).post("/admin/dashboard/users").send({
       username: "manos",
-      password: "1A#dcfddsfvbedfgvb",
+      password: "1A_dcfddsfvbedfgvb",
       email: "manos123@gmail",
     });
 

@@ -32,11 +32,13 @@ describe("Article tests", () => {
   it("should return 201 when updating an article", async () => {
     articleToUpdate.title = "Updated Article";
     articleToUpdate.content = "Updated Content";
+    articleToUpdate.createdOn = ""
+    articleToUpdate.lastEditedOn = ""
     const response = await request(app)
       .patch("/admin/dashboard/articles")
       .set("token", token)
       .send(articleToUpdate);
-
+console.log(response.body,articleToUpdate)
     expect(response.statusCode).to.be.equal(201);
   });
 

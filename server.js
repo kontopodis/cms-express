@@ -1,5 +1,5 @@
 import log from "./modules/log.js";
-
+import cors from 'cors'
 import express from "express";
 import adminRouter from "./admin/index.js";
 import bodyParser from "body-parser";
@@ -14,7 +14,10 @@ import {
 } from "api-security-middleware";
 
 const app = express();
-
+const corsOptions = {
+  origin: "*"
+}
+app.use(cors(corsOptions))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
