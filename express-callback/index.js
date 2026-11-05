@@ -9,6 +9,9 @@ const makeExpressCallback = (controller)=> {
         path: req.path,
         headers: req.headers
       }
+      console.log("HTTTP REQUEST")
+      console.log(httpRequest)
+      console.log("END OF HTTP REQUEST")
       controller(httpRequest)
         .then(httpResponse => {
           if (httpResponse.headers) {

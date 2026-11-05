@@ -128,7 +128,7 @@ import validators from "../admin/modules/index.js"
         "adg@gm.com" + " should be valid"
       ).to.equal(true);
     });
-    it("Validates Passowrd", () => {
+    it("Validates Password", () => {
       expect(validators.isValidPassword("1Qqw_e45t")).to.equal(true);
     });
     it("Validates Id", () => {

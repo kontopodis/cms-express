@@ -7,11 +7,16 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
+  getAllArticles,
+  findArticleById
 } from "./controllers/index.js"
-
+ 
 //Only Admins && Moderators Access
-app.post("/articles", jwtMiddleware, makeCallBack(createArticle));
-app.delete("/articles", jwtMiddleware, makeCallBack(deleteArticle));
-app.patch("/articles", jwtMiddleware, makeCallBack(updateArticle));
+app.post("/article", jwtMiddleware, makeCallBack(createArticle));
+app.delete("/article", jwtMiddleware, makeCallBack(deleteArticle));
+app.patch("/article", jwtMiddleware, makeCallBack(updateArticle));
 
+//without authentication
+app.get("/articles", makeCallBack(getAllArticles));
+app.get("/article", makeCallBack(findArticleById));
 export default app;

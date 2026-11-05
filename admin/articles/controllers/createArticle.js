@@ -3,10 +3,11 @@ import responses from "../../../modules/responses.js"
 const makeCreateArticle = (addArticle) => {
   return async function createArticle (httpRequest){
     const token = httpRequest.headers.token;
+    
     const user = jwt.getTokensUser(token);
     if (user.role === "admin" || user.role === "moderator") {
       const authorId = user.id;
-    
+   
       const title = httpRequest.body.title;
       const content = httpRequest.body.content;
       const imageUrl = httpRequest.body.imageUrl;

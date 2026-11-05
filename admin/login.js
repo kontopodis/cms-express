@@ -15,7 +15,7 @@ const login = async (httpRequest) => {
         if(!emailJS || !pass){
             return responses.badRequest
         }else{
-          let emailL = emailJS.toLowerCase()
+          let emailL = emailJS.toLowerCase() 
           let email = emailL.trim()
           let user = await userDB.findByEmail(email)
             if(!user){

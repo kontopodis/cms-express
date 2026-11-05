@@ -14,4 +14,8 @@ const flushAll = ()=>{
   userCache.flushAll()
 }
 
-export { insertToken, deleteToken, getTokensUser,flushAll };
+const getAll = ()=>{
+  userCache.keys()
+}
+
+export { insertToken, deleteToken, getTokensUser,flushAll,getAll };

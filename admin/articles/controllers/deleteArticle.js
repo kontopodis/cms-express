@@ -10,7 +10,7 @@ const makeDeleteArticle = (deleteArticleUC) => {
      
       if (id) {
         const res = await deleteArticleUC(id);
-      
+      console.log(res)
         if (res) {
           return responses.ok
         } else {

@@ -15,7 +15,7 @@ describe("Article tests", () => {
 
   it("Should return 201 when creating an article", async () => {
     const response = await request(app)
-      .post("/admin/dashboard/articles")
+      .post("/admin/article")
       .set("token", token)
       .send({
         title: "A title",
@@ -35,7 +35,7 @@ describe("Article tests", () => {
     articleToUpdate.createdOn = ""
     articleToUpdate.lastEditedOn = ""
     const response = await request(app)
-      .patch("/admin/dashboard/articles")
+      .patch("/admin/article")
       .set("token", token)
       .send(articleToUpdate);
 console.log(response.body,articleToUpdate)
@@ -44,7 +44,7 @@ console.log(response.body,articleToUpdate)
 
   it("should return 201 when deleting an article", async () => {
     const response = await request(app)
-      .delete("/admin/dashboard/articles")
+      .delete("/admin/article")
       .set("token", token)
       .send({
         id: articleToUpdate.id,
@@ -54,7 +54,7 @@ console.log(response.body,articleToUpdate)
   });
   it("should return 400 when title is not defined", async () => {
     const response = await request(app)
-      .post("/admin/dashboard/articles")
+      .post("/admin/article")
       .set("token", token)
       .send({
         content: "Some Content",
@@ -64,7 +64,7 @@ console.log(response.body,articleToUpdate)
   });
   it("should return 400 when content is not defined", async () => {
     const response = await request(app)
-      .post("/admin/dashboard/articles")
+      .post("/admin/article")
       .set("token", token)
       .send({
         title: "A title",
@@ -74,7 +74,7 @@ console.log(response.body,articleToUpdate)
   });
   it("should return 400 when image is not defined", async () => {
     const response = await request(app)
-      .post("/admin/dashboard/articles")
+      .post("/admin/article")
       .set("token", token)
       .send({
         title: "A title",
@@ -85,7 +85,7 @@ console.log(response.body,articleToUpdate)
   it(
     "should return 403 when trying to create an article without authentication",async ()=>{
       const response = await request(app)
-      .post("/admin/dashboard/articles")
+      .post("/admin/article")
       .send({
         title: "A title",
         content: "Some Content",
@@ -97,7 +97,7 @@ console.log(response.body,articleToUpdate)
   it(
     "should return 403 when trying to update an article without authentication",async ()=>{
       const response = await request(app)
-      .patch("/admin/dashboard/articles")
+      .patch("/admin/article")
       .send({
         title: "A title",
         content: "Some Content",
@@ -109,7 +109,7 @@ console.log(response.body,articleToUpdate)
   it(
     "should return 403 when trying to delete an article without authentication",async ()=>{
       const response = await request(app)
-      .delete("/admin/dashboard/articles")
+      .delete("/admin/article")
       .send({
         title: "A title",
         content: "Some Content",

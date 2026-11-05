@@ -50,10 +50,23 @@ const client = new sqlite3.Database("cms-express.db", () => {
   } 
     userService.addUser(user).then(res=>{
       console.log(res)
+                const setting = {
+        
+        case: "toAdmin",
+        email: user.email,
+      };
+      userService.updateUser(setting).then((res)=>{
+        console.log(res)
+      })
     })
     .catch(err=>{
       console.log("Error: ",err)
     })
+
+
   
-      console.log("Install of cms-express completed!")
+      
  }
+
+ checkDBStatus()
+    createAdmin()

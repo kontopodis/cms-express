@@ -8,7 +8,7 @@ const makeGetArticleById = (getArticleById) => {
     if(!article){
       return responses.badRequest
     }else{
-      article.authorId = "HasBeenRemoved"
+      
       return {
         statusCode: 201,
         body: article,

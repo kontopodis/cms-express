@@ -18,8 +18,9 @@ const corsOptions = {
   origin: "*"
 }
 app.use(cors(corsOptions))
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use(contentMiddleware.sqlDetectionMiddleware());
 
@@ -44,6 +45,11 @@ app.get("/articles", makeCallBack(getAllArticles));
 app.get("/view/article", async (req, res) => {
   const article = await findArticleById(req);
   console.log(article);
+  res.render("article", article.body);
+});
+app.get("/view/articles", async (req, res) => {
+  const article = await getAllArticles(req);
+
   res.render("article", article.body);
 });
 app.use(makeCallBack(notFound));

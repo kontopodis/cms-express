@@ -55,7 +55,7 @@ describe("Authenticate a user", () => {
 
   it("Gets 201 when user updates his email", async () => {
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", token)
       .send({
         case: "email",
@@ -66,7 +66,7 @@ describe("Authenticate a user", () => {
   });
   it("Gets 201 when user updates his password", async () => {
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", token)
       .send({
         case: "password",
@@ -77,7 +77,7 @@ describe("Authenticate a user", () => {
   });
   it("Gets 201 when user updates his username", async () => {
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", token)
       .send({
         case: "username",
@@ -92,7 +92,7 @@ describe("Authenticate a user", () => {
     const user = await userService.findByEmail("manos@gmail.com");
 
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", adminToken)
       .send({
         email: user.body.email,
@@ -109,7 +109,7 @@ describe("Authenticate a user", () => {
     const user = await userService.findByEmail("manos@gmail.com");
 
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", adminToken)
       .send({
         email: user.body.email,
@@ -126,7 +126,7 @@ describe("Authenticate a user", () => {
   it("Gets 201 when an admin trying to get all users", async () => {
     const user = await userService.findByEmail("manos@gmail.com");
     const response = await request(app)
-      .get("/admin/dashboard/users")
+      .get("/admin/users")
       .set("token", adminToken);
 
     expect(response.status).to.be.equal(200);
@@ -164,7 +164,7 @@ describe("Authenticate a user", () => {
   it("Gets 403 when a reader is trying to change toAdmin", async () => {
     const user = await userService.findByEmail("manos@gmail.com");
     const response = await request(app)
-      .patch("/admin/dashboard/users")
+      .patch("/admin/users")
       .set("token", token)
       .send({
         id: user.id,
@@ -177,14 +177,14 @@ describe("Authenticate a user", () => {
 
   it("Gets 403 when its not admin to get all users", async () => {
     const response = await request(app)
-      .get("/admin/dashboard/users")
+      .get("/admin/users")
       .set("token", token);
 
     expect(response.status).to.be.equal(403);
   });
   it("Gets 403 when its not admin to delete a user", async () => {
     const response = await request(app)
-      .delete("/admin/dashboard/users")
+      .delete("/admin/users")
       .set("token", token)
       .send({ email: "aergesargesargergaewrg" });
 

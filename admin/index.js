@@ -13,19 +13,19 @@ import {
 import articlesRouter from "./articles/index.js"
 
 
-app.use("/dashboard/",articlesRouter)
-app.get("/admin", function (req, res) {
+app.use("/",articlesRouter)
+app.get("/board", function (req, res) {
   res.render("login");
 });
 
 // without authentication
 app.post("/login", makeCallBack(login));
-app.post("/dashboard/users", makeCallBack(createUser));
+app.post("/users", makeCallBack(createUser));
 
 //Only Admins access
-app.get("/dashboard/users",jwtMiddleware, makeCallBack(getUsers));
-app.delete("/dashboard/users",jwtMiddleware, makeCallBack(removeUser));
+app.get("/users",jwtMiddleware, makeCallBack(getUsers));
+app.delete("/users",jwtMiddleware, makeCallBack(removeUser));
 //Only Admins or the owner of that userInstance
-app.patch("/dashboard/users",jwtMiddleware, makeCallBack(updateUser));
+app.patch("/users",jwtMiddleware, makeCallBack(updateUser));
 
 export default app
