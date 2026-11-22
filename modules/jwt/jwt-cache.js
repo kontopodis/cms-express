@@ -1,4 +1,4 @@
-import userCache from "../cache/user-cache.js"
+import {userCache} from "../../server.js"
 const insertToken = (token, user) => {
   return userCache.set(token, user);
 };
@@ -12,10 +12,14 @@ const getTokensUser = (token) => {
 
 const flushAll = ()=>{
   userCache.flushAll()
-}
+} 
 
 const getAll = ()=>{
-  userCache.keys()
+  return userCache.keys()
+}
+
+const cleanup = ()=>{
+  userCache.cleanup()
 }
 
 export { insertToken, deleteToken, getTokensUser,flushAll,getAll };

@@ -2,7 +2,7 @@ import { expect, assert } from "chai"
 import makeUser from "../admin/users/user/index.js"
 import Id from "../admin/modules/id.js"
 import jwt from "../modules/jwt/index.js"
-import userCache from "../modules/cache/user-cache.js"
+import {userCache} from "../server.js"
 
   let validUser = {
     id: Id.createId(),

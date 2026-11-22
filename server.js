@@ -12,6 +12,9 @@ import {
 import {
   contentMiddleware,
 } from "api-security-middleware";
+import NodeCache from  "node-cache" 
+
+const userCache = new NodeCache( { stdTTL: 60*60, checkperiod: 60*60 } );
 
 const app = express();
 const corsOptions = {
@@ -22,10 +25,10 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(contentMiddleware.sqlDetectionMiddleware());
+//app.use(contentMiddleware.sqlDetectionMiddleware());
 
 // XSS Detection
-app.use(contentMiddleware.xssDetectionMiddleware());
+//app.use(contentMiddleware.xssDetectionMiddleware());
 
 
 app.use(express.static("public"));
@@ -54,4 +57,4 @@ app.get("/view/articles", async (req, res) => {
 });
 app.use(makeCallBack(notFound));
 
-export default app;
+export {app , userCache};

@@ -1,3 +1,4 @@
+import {userCache} from '../server.js'
 const makeExpressCallback = (controller)=> {
     return (req, res) => {
       const httpRequest = {
@@ -9,11 +10,14 @@ const makeExpressCallback = (controller)=> {
         path: req.path,
         headers: req.headers
       }
-      console.log("HTTTP REQUEST")
-      console.log(httpRequest)
-      console.log("END OF HTTP REQUEST")
+      //console.log("HTTTP REQUEST")
+      console.log(httpRequest.path,)
+      console.log(httpRequest.method)
+      
+      //console.log("END OF HTTP REQUEST")
       controller(httpRequest)
         .then(httpResponse => {
+          //console.log(httpResponse)
           if (httpResponse.headers) {
             res.set(httpResponse.headers)
           }

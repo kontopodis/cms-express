@@ -3,14 +3,16 @@ import jwt from "../modules/jwt/index.js"
 const jwtMiddleware = (req, res, next) => {
 
   let token = req.headers.token;
-
+console.log(token)
   if (!token) {
     forbitenResponse(res);
+    console.log(req.headers)
   } else {
     let cachedUser = jwt.getTokensUser(token);
  
     let validToken = jwt.verifyToken(token)
-
+      console.log("Cached User: ",cachedUser)
+      console.log("Valid Token: ",validToken)
     let all = jwt.getAll()
     console.log("keys:",all)
 

@@ -4,9 +4,9 @@ const makeUpdateArticle = (updateArticleUC) => {
   return async function updateArticle (httpRequest){
     const token = httpRequest.headers.token;
     const user = jwt.getTokensUser(token);
-    console.log("Update Article")
-    console.log(user)
-    console.log("--------") 
+   // console.log("Update Article")
+    //console.log(user)
+    //console.log("--------") 
     if (user.role === "admin" || user.role === "moderator") {
       const id = httpRequest.body.id;
       const authorId = user.id;

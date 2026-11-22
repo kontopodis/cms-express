@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import request from "supertest";
-import app from "../server.js";
-
+import {app} from "../server.js";
+import articleService from "../admin/articles/use-cases/index.js"
 let token;
 let articleToUpdate;
 describe("Article tests", () => {
@@ -12,6 +12,13 @@ describe("Article tests", () => {
     });
     token = response.body.token;
   });
+
+  after("clean up",async ()=>{
+            const articles = await articleService.getAllArticles()
+            articles.map((article)=>{
+                articleService.deleteArticle(article.id)
+            })
+        })
 
   it("Should return 201 when creating an article", async () => {
     const response = await request(app)
@@ -38,7 +45,7 @@ describe("Article tests", () => {
       .patch("/admin/article")
       .set("token", token)
       .send(articleToUpdate);
-console.log(response.body,articleToUpdate)
+
     expect(response.statusCode).to.be.equal(201);
   });
 
@@ -118,4 +125,58 @@ console.log(response.body,articleToUpdate)
     expect(response.statusCode).to.be.equal(403);
     }
   );
+  it(
+    "Should create 3 articles", async()=>{
+      const response1 = await request(app)
+      .post("/admin/article")
+      .set("token", token)
+      .send({
+        title: "A title1",
+        content: "Some Content",
+        imageUrl: "some/url/somewhere",
+      });
+    expect(response1.statusCode).to.be.equal(201);
+
+          const response2 = await request(app)
+      .post("/admin/article")
+      .set("token", token)
+      .send({
+        title: "A title2",
+        content: "Some Content",
+        imageUrl: "some/url/somewhere",
+      });
+    expect(response2.statusCode).to.be.equal(201);
+
+          const response3 = await request(app)
+      .post("/admin/article")
+      .set("token", token)
+      .send({
+        title: "A title3",
+        content: "Some Content",
+        imageUrl: "some/url/somewhere",
+      });
+    expect(response3.statusCode).to.be.equal(201);
+
+    const allArticlesRes = await request(app).get("/articles");
+    const allArticles = await allArticlesRes.body;
+    expect(allArticles.length).to.be.equal(3);
+    }
+  )
+    it(
+    "Should update 3 articles", async()=>{
+      const allArticlesRes = await request(app).get("/articles");
+
+      allArticlesRes.body.map(async (article)=>{
+            const response = await request(app)
+      .patch("/admin/article")
+      .set("token", token)
+      .send(
+        article.title =  "Updated title"
+      );
+    expect(response.statusCode).to.be.equal(201);
+      })
+
+
+    }
+  )
 });

@@ -4,13 +4,14 @@ const makeDeleteArticle = (deleteArticleUC) => {
   return async function deleteArticle (httpRequest){
     const token = httpRequest.headers.token;
     const user = jwt.getTokensUser(token);
-
+   console.log(user)
+   console.log(token)
     if (user.role === "admin" || user.role === "moderator") {
       const id = httpRequest.body.id;
-     
+     console.log(httpRequest)
       if (id) {
         const res = await deleteArticleUC(id);
-      console.log(res)
+      //console.log(res)
         if (res) {
           return responses.ok
         } else {

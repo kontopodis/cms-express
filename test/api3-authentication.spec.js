@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import request from "supertest";
-import app from "../server.js";
+import {app} from "../server.js";
 import userService from "../admin/users/use-cases/index.js";
 
 let token;

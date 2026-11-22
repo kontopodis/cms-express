@@ -1,5 +1,6 @@
 import makeArticle from "../admin/articles/article/index.js"
 import modules from "../admin/modules/index.js"
+
 import {expect} from "chai"
 const validArticle={
     id:modules.createId(),
@@ -20,6 +21,7 @@ const invalidArticle={
 
 
     describe("Article tests",()=>{
+
         it("Should create an Article instance",()=>{
             const article = makeArticle(validArticle)
             expect(article.getTitle()).to.be.equal("Sample title")

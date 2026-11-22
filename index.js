@@ -1,5 +1,5 @@
 console.log("Got till here")
-import app from './server.js'
+import {app} from './server.js'
 import log from "./modules/log.js"
 import {
     ipFilterMiddleware,
