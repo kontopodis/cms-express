@@ -10,6 +10,8 @@ const makeRemoveUser = () => {
       const token = httpRequest.headers.token
       const user = jwt.getTokensUser(token)
       if(!token || !user || !httpRequest.body.email){
+
+        console.log(httpRequest.body)
         return responses.badRequest
       }else  if(user.role === "admin"){
        

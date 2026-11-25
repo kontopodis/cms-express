@@ -13,6 +13,11 @@ const userMakeDB = (makeDB) => {
     let user = await db.get("select * from cmsUser where email=?", email);
     return await user;
   };
+    const findByRole = async (role) => {
+    let db = await makeDB();
+    let users = await db.get("select * from cmsUser where role=?", role);
+    return await users;
+  };
 
   const isUserRole = async (role,id) =>{
     let db = await makeDB();

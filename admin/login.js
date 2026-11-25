@@ -42,6 +42,7 @@ const login = async (httpRequest) => {
                         body:{
                             code:200,
                             token:token,
+                            user:user,
                             message:"Login Successfull"
                         }
                     }

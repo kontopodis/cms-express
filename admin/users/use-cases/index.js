@@ -5,6 +5,7 @@ import makeFindUserByEmail from "./find-user-by-email.js"
 import makeDeleteUser from "./delete-user.js"
 import makeUpdateUser from "./update-user.js"
 import userDB from "../data-access/index.js"
+import makeFindUserByRole from "./find-by-role.js"
 
 
 const addUser = makeAddUser({userDB})
@@ -13,12 +14,14 @@ const findById = makeFindUserById({userDB})
 const findByEmail = makeFindUserByEmail({userDB})
 const deleteUser = makeDeleteUser({userDB})
 const updateUser = makeUpdateUser({userDB})
+const findByRole = makeFindUserByRole({userDB})
 
 const userService = Object.freeze({
     addUser,
     findAll,
     findById,
     findByEmail,
+    findByRole,
     deleteUser,
     updateUser
 })
@@ -29,6 +32,7 @@ export{
     findAll,
     findById,
     findByEmail,
+    findByRole,
     deleteUser,
     updateUser
 }
