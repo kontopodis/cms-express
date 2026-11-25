@@ -35,14 +35,15 @@ const login = async (httpRequest) => {
 
                    await userService.updateUser(update)
              
-
+                    let withHiddenData = user
+                    withHiddenData.password = "HasBeenRemoved"
                     return {
                         headers,
                         statusCode:200,
                         body:{
                             code:200,
                             token:token,
-                            user:user,
+                            user:withHiddenData,
                             message:"Login Successfull"
                         }
                     }

@@ -6,18 +6,20 @@ const makeGetUsers = () => {
   return async function getUsers (httpRequest){
     const token = httpRequest.headers.token
     const user = jwt.getTokensUser(token)
+    console.log("Tokens User:")
     console.log(user)
     if(user.role === "admin"){
      
       try {
 
         const payload = await findAll();
+        console.log(payload);
         var withHiddenData = [];
         payload.forEach(element => {
-          element.password = "HasBeenRemoved"
-          
 
+          element.password = "HasBeenRemoved"
           withHiddenData.push(element)
+
         });
         return {
           statusCode: 200,
@@ -33,12 +35,23 @@ const makeGetUsers = () => {
       try {
         
         const payload = await findByRole("reader");
+        console.log("payload")
+        
+        
+          var withHiddenData = [];
 
-          payload.password = "HasBeenRemoved"
+            payload.forEach((element)=>{
+
+              element.password = "HasBeenRemoved"
+              withHiddenData.push(element)
+
+          })
   
+          
+          console.log(withHiddenData)
         return {
           statusCode: 200,
-          body: [payload],
+          body: withHiddenData,
         };
       } catch (payload) {
         // TODO: Error logging
@@ -63,8 +76,7 @@ const makeGetUsers = () => {
         console.log(payload);
         return responses.internalError
       }
-    }
-    else {
+    } else {
       return responses.notAuthorised
     }
 

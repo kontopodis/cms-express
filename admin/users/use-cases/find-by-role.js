@@ -1,7 +1,7 @@
 import userDB from "../data-access/index.js";
 const makeFindUserByRole = () => {
-  const findUserByRole = async (id) => {
-    return await userDB.findByRole(id);
+  const findUserByRole = async (role) => {
+    return await userDB.findByRole(role);
   };
   return findUserByRole;
 };

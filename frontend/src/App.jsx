@@ -15,8 +15,8 @@ const initialUsers = [
 
 
 function Login({ onLogin }) {
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("1A_qwerty");
+  const [email, setEmail] = useState("mod@gmail.com");
+  const [password, setPassword] = useState("1Aqwerty_");
   const navigate = useNavigate();
   function submit(e) { e.preventDefault(); onLogin(email, password); navigate("/articles"); }
   return <main className="login-page"><form className="login-card" onSubmit={submit}>
@@ -31,7 +31,7 @@ function Login({ onLogin }) {
 
 function Shell({ onLogout , user}) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  console.log(user)
+
   return <div className="app-shell">
     <aside className={`sidebar ${mobileOpen ? "open" : ""}`}>
       <div className="brand"><span className="brand-mark small">A</span><span>Admin<span className="brand-light">Panel</span></span></div>
@@ -43,7 +43,14 @@ function Shell({ onLogout , user}) {
       <button className="logout" onClick={onLogout}><LogOut size={18} /> Sign out</button>
     </aside>
     <section className="main-area">
-      <header className="topbar"><button className="icon-button mobile-menu" onClick={() => setMobileOpen(!mobileOpen)}><Menu /></button><div className="breadcrumb">Workspace <span>/</span> Administration</div><div className="profile"><div className="avatar">AD</div><div><b>{user.username}</b><small>{capitalizeFirstLetter(user.role)}</small></div></div></header>
+      <header className="topbar">
+        <button className="icon-button mobile-menu" onClick={() => setMobileOpen(!mobileOpen)}><Menu /></button>
+        <div className="breadcrumb">Workspace <span>/</span> Administration</div>
+        <div className="profile">
+          <div className="avatar">AD</div>
+          <Link className="text-link" to={`/users/${user.id}/edit`}><div><b>{user.username}</b><small>{capitalizeFirstLetter(user.role)}</small></div></Link>
+        </div>
+      </header>
       <main className="content"><Outlet /></main>
     </section>
   </div>;
@@ -60,10 +67,10 @@ function Articles({ articles, token, getArticles }) {
   const deleteArticle = (id) => {
     axios.defaults.headers = { token: token }
     const body = { id: id }
-    console.log(body)
+    
     axios.delete("http://localhost:3000/admin/article", { data: body })
       .then((res) => {
-        console.log(res)
+        
         getArticles()
       }).catch((err) => {
         console.log(err)
@@ -85,7 +92,7 @@ function ArticleForm({ articles, token, getArticles, usecase }) {
   const [body, setBody] = useState(existing?.content);
 
   const newArticle = (n) => {
-    console.log(token)
+    
     const article = {
 
       title: title,
@@ -117,9 +124,12 @@ function ArticleForm({ articles, token, getArticles, usecase }) {
   }
   function submit(e) {
     e.preventDefault();
-    if (usecase == "new") { newArticle() }
+    if (title === "" || body === ""){}else{
+          if (usecase == "new") { newArticle() }
     else if (usecase == "update") { updateArticle() }
     navigate("/articles");
+    }
+
   }
   if (id && !existing) return <NotFound />;
   return <><PageHeading title={id ? "Edit article" : "Add article"} subtitle="Fill in the details below." />
@@ -131,10 +141,10 @@ function ArticleForm({ articles, token, getArticles, usecase }) {
   </>;
 }
 
-function UsersPage({ users, getUsers }) {
+function UsersPage({ user, users, getUsers }) {
   if (users === initialUsers) {
-    getUsers().then(() => {
-      console.log("got Users")
+    getUsers().then((res) => {
+      console.log(res)
     })
   }
   const deleteUser = async (email)=>{ 
@@ -147,7 +157,13 @@ function UsersPage({ users, getUsers }) {
 
   return <><PageHeading title="Users" subtitle="Manage people and their access." action={<Link className="button primary" to="/users/new"><Plus size={17} /> Add user</Link>} />
     <div className="table-card"><table><thead><tr><th>Username</th><th>Email</th><th>Role</th><th></th></tr></thead><tbody>
-      {users.map(u => <tr key={u.id}><td><b>{u.username}</b></td><td>{u.email}</td><td><span className="badge neutral">{u.role}</span></td><td><Link className="text-link" to={`/users/${u.id}/edit`}>Edit</Link></td><td><Link className="text-link" to={`/users/`}  onClick={()=>{deleteUser(u.email)}}>Delete</Link></td></tr>)}
+      {users.map(u => 
+      <tr key={u.id}>
+        <td><b>{u.username}</b></td>
+        <td>{u.email}</td>
+        <td><span className="badge neutral">{u.role}</span></td>
+        <td><Link className="text-link" to={`/users/`}  onClick={()=>{deleteUser(u.email)}}>Delete</Link></td>
+        </tr>)}
     </tbody></table></div>
   </>;
 }
@@ -160,7 +176,6 @@ function NewUserForm({ getUsers }) {
   const navigate = useNavigate();
   const createUser = async (payload) =>{
     await axios.post("http://localhost:3000/admin/user", payload).then((res)=>{ 
-      console.log(res)
       getUsers()
     })
   }
@@ -178,13 +193,13 @@ function NewUserForm({ getUsers }) {
     </form>
   </>;
 }
-function EditUserForm({ users, token, getUsers}) {
-  const { id } = useParams(), navigate = useNavigate(), existing = users.find(u => u.id === id);
+function EditUserForm({user, users, token, getUsers}) {
+  const { id } = useParams(), navigate = useNavigate(), existing = user;
   const [name, setName] = useState(existing?.username || "");
   const [email, setEmail] = useState(existing?.email || "");
   const [password, setPassword] = useState(existing?.password || "");
-  const [role, setRole] = useState(existing?.role || "Reader");
-    console.log(existing)
+  const [role, setRole] = useState(capitalizeFirstLetter(existing?.role) || "Reader");
+    console.log("Existing: ",existing)
   return <><PageHeading title="Edit user" subtitle="Set up a user's profile and permissions." />
 <form className="form-card">
   <label>Username<input value={name} onChange={e => setName(e.target.value)} required placeholder="e.g. Taylor Smith" /></label>
@@ -230,7 +245,7 @@ function EditUserForm({ users, token, getUsers}) {
       axios.defaults.headers = { token: token }
       await axios.patch("http://localhost:3000/admin/user", {email:email, case: "to"+role, value:role}).then((res)=>{
         console.log(res)
-        console.log("to"+role)
+
         getUsers()
         navigate("/users")
       })
@@ -257,7 +272,7 @@ export default function App() {
 
   const getArticles = async () => {
     await axios.get("http://localhost:3000/articles").then((res) => {
-      console.log(JSON.parse(res.request.response))
+  
       setArticles(JSON.parse(res.request.response))
 
     })
@@ -316,9 +331,9 @@ console.log("Logged out")
       <Route path="/articles" element={<Articles articles={articles} token={token} getArticles={getArticles} />} />
       <Route path="/articles/new" element={<ArticleForm articles={articles} token={token} getArticles={getArticles} usecase="new" />} />
       <Route path="/articles/:id/edit" element={<ArticleForm articles={articles} token={token} getArticles={getArticles} usecase="update" />} />
-      <Route path="/users" element={<UsersPage users={users} setUsers={setUsers} token={token} getUsers={getUsers} />} />
+      <Route path="/users" element={<UsersPage user={user} users={users} setUsers={setUsers} token={token} getUsers={getUsers} />} />
       <Route path="/users/new" element={<NewUserForm getUsers={getUsers} />} />
-      <Route path="/users/:id/edit" element={<EditUserForm users = {users} getUsers={getUsers} token={token} />} />
+      <Route path="/users/:id/edit" element={<EditUserForm users = {users} getUsers={getUsers} token={token} user={user}/>} />
     </Route>
     <Route path="*" element={<Navigate to={authenticated ? "/articles" : "/"} />} />
   </Routes>;

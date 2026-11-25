@@ -15,7 +15,7 @@ const userMakeDB = (makeDB) => {
   };
     const findByRole = async (role) => {
     let db = await makeDB();
-    let users = await db.get("select * from cmsUser where role=?", role);
+    let users = await db.all(`select * from cmsUser where role=?`, role);
     return await users;
   };
 
@@ -76,6 +76,7 @@ const userMakeDB = (makeDB) => {
     findAll,
     findById,
     findByEmail,
+    findByRole,
     addUser,
     updateUserById,
     deleteUserByEmail,
